@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 组件扫描（除Controller以外) -->
+	<context:component-scan base-package="com.a1bum">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<context:property-placeholder
+		location="classpath:dbconfig.properties" />
+
+	<!-- c3p0数据源 -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="driverClass" value="${driver}"></property>
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${pwd}"></property>
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 增强性事务 -->
+	<aop:config>
+		<!-- 从哪个地方开始切面 -->
+		<!-- * 返回值任意 com.a1bum.service包 .包下面的 .类的全路径 *任意方法名 (..)参数列表，任意参数 execution()执行 -->
+		<aop:pointcut
+			expression="execution(* com.a1bum.service..*(..))" id="pointcut" />
+		<!-- 切面通知 -->
+		<!-- advice-ref:通知 pointcut-ref:具体指向 -->
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut" />
+	</aop:config>
+
+	<!-- 具体通知（这种方式较灵活） -->
+	<tx:advice id="advice"
+		transaction-manager="transactionManager">
+		<!-- 属性 -->
+		<tx:attributes>
+			<!-- 方法 -->
+			<tx:method name="*" />
+			<tx:method name="get*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- mybatis整合 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations"
+			value="classpath:mapper/*.xml"></property>
+
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<!--使用下面的方式配置参数，一行配置一个 -->
+						<value>
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 具体扫描哪些接口 -->
+		<property name="basePackage" value="com.a1bum.dao"></property>
+	</bean>
+
+</beans>
