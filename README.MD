@@ -5,14 +5,21 @@
 ## 项目简介
 
 ​	校园招聘平台-PC端，一方面为手机端的微信小程序提供数据接口，另一方面为企业和高校管理人员提供沟通渠道。从企业资质审核，申请宣讲会资源，到高校招生就业处相关人员进行时间、地点安排，发布公告，整个流程形成一个闭环，将人力从繁复的流程中释放出来。后端采用 Spring + SpringMVC + Mybatis 框架，前端采用layuiadmin 和 Xadmin 部分代码，并做了相关修改，以适应本项目的使用。
-
+​	
 ​	本项目当前仅给出 eclipse 工程文件，和供 tomcat 启动的 war 包，以及数据库的 SQL 文件。后续可能会提供 IDEA 工程文件。微信小程序端请访问 [WXCampus-Recuitment-Platform](https://github.com/a1bum/WXCampus-Recruitment-Platform)。
 
 ## 致谢&参考
 
-[登录界面](https://gitee.com/layuicms/layuicms) &emsp; [管理界面](https://gitee.com/daniuit/X-admin/)
+[登录界面](https://gitee.com/layuicms/layuicms) &emsp; [管理界面](https://gitee.com/daniuit/X-admin/)&emsp;[bing每日背景图](https://area.sinaapp.com/bingImg/)
 
 ## 更新日志
+
+### 2019-04-15
+
+1. 砍掉目前不用的功能及其相关代码，使得代码结构整洁；
+2. 修复“相关字体图标由于目录结构变化导致显示不正常”问题（[layui--字体图标](https://www.layui.com/doc/element/icon.html)）；
+3. 修复“ iframe 加载的标签没有图标”问题；
+4. 实现“ jsp 页面使用c标签循环读取分页后的数据，并以表格形式显示”；
 
 ### 2019-04-13
 
@@ -62,7 +69,7 @@
 
 ### 2019-03-12~2019-03-17
 
-​       不得不说，懒得要命，混吃等死，项目搁置
+       不得不说，懒得要命，混吃等死，项目搁置
 
 ### 2019-03-11
 
