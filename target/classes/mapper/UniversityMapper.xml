@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.a1bum.dao.UniversityMapper">
-	<select id="getByUniversityName" resultType="com.a1bum.entity.University">
+<mapper namespace="top.a1bum.dao.UniversityMapper">
+	<select id="getByUniversityName" resultType="top.a1bum.entity.University">
 		SELECT * FROM university_info where university_name=#{university_name};
 	</select>
-	<select id="getAll" resultType="com.a1bum.entity.University">
+	<select id="getAll" resultType="top.a1bum.entity.University">
 		select * from university_info;
 	</select>
-	<select id="getByKeyword" resultType="com.a1bum.entity.University">
+	<select id="getByKeyword" resultType="top.a1bum.entity.University">
 		select * from university_info 
 		where 
 		city like concat('%',#{0},'%')

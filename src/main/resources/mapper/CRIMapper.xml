@@ -2,24 +2,51 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.a1bum.dao.CRIMapper">
-	<insert id="addCRI" parameterType="com.a1bum.entity.CRI">
-		insert into campus_recruitment_info(wx_id,company_name,university_name,hold_date,start_time,end_time,locations) 
+<mapper namespace="top.a1bum.dao.CRIMapper">
+	<insert id="addCRI" parameterType="top.a1bum.entity.CRI">
+		insert into
+		campus_recruitment_info(wx_id,company_name,university_name,hold_date,start_time,end_time,locations)
 		values(#{wx_id},#{company_name},#{university_name},#{hold_date},#{start_time},#{end_time},#{locations})
 	</insert>
-	<select id="getAll" resultType="com.a1bum.entity.CRI">
+	<select id="getByCampusAndIsExpired"
+		resultType="top.a1bum.entity.CRI">
 		select * from campus_recruitment_info
+		WHERE
+		university_name=#{admin_university}
+		<if test="isExpired==1">
+			AND hold_date&gt;=#{today}
+			AND start_time&gt;=#{time}
+		</if>
+		<if test="isExpired==0">
+			AND hold_date&lt;#{today}
+			AND start_time&lt;#{time}
+		</if>
 	</select>
-	<select id="getByKeyword" resultType="com.a1bum.entity.CRI">
-		SELECT * FROM campus_recruitment_info 
+	<select id="getByCampus" resultType="top.a1bum.entity.CRI">
+		select * from
+		campus_recruitment_info
+		WHERE university_name=#{admin_university}
+		ORDER
+		BY hold_date DESC
+	</select>
+	<select id="getAll" resultType="top.a1bum.entity.CRI">
+		select * from
+		campus_recruitment_info
+		ORDER BY hold_date DESC
+	</select>
+	<select id="getByKeyword" resultType="top.a1bum.entity.CRI">
+		SELECT * FROM
+		campus_recruitment_info
 		WHERE (university_name LIKE CONCAT('%', #{keyword}, '%')
-		 OR company_name LIKE CONCAT('%', #{keyword}, '%')
-		 OR locations LIKE concat('%', #{keyword}, '%')
-		 OR university_short_name LIKE CONCAT('%', #{keyword}, '%'))
-		and hold_date>=#{today}
+		OR company_name LIKE CONCAT('%', #{keyword}, '%')
+		OR locations LIKE concat('%', #{keyword}, '%')
+		OR university_short_name LIKE CONCAT('%', #{keyword}, '%'))
+		and
+		hold_date>=#{today}
 	</select>
-	<select id="getByDate" resultType="com.a1bum.entity.CRI">
-		SELECT * FROM campus_recruitment_info 
+	<select id="getByDate" resultType="top.a1bum.entity.CRI">
+		SELECT * FROM
+		campus_recruitment_info
 		WHERE hold_date=#{hold_date}
 	</select>
 </mapper>
