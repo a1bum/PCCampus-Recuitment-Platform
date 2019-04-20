@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.WXUserMapper">
-	<insert id="addUser" parameterType="top.a1bum.entity.WXUser">
+	<insert id="addWXUser" parameterType="top.a1bum.entity.WXUser">
 		INSERT INTO user_info
 		VALUES(#{wx_id}, #{user_name}, #{personal_statement})
 	</insert>
-	<select id="getUser" resultType="top.a1bum.entity.WXUser">
+	<select id="getWXUser" resultType="top.a1bum.entity.WXUser">
 		SELECT * FROM user_info WHERE wx_id=#{wx_id}
 	</select>
 </mapper>

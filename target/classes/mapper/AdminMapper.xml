@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.AdminMapper">
+	<select id="getVersion">
+		SELECT VERSION();
+	</select>
 	<select id="getColleagues" resultType="Integer">
 		SELECT count(*) FROM admin_info
 		WHERE admin_university=#{admin_univeristy};

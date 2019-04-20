@@ -8,23 +8,16 @@
 <meta charset="UTF-8">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport"
-	content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
 <link rel="stylesheet" href="/WXMiniProgram/static/css/font.css">
 <link rel="stylesheet" href="/WXMiniProgram/static/css/xadmin.css">
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
+<script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
 </head>
 <body>
 	<div class="x-body">
-		<blockquote class="layui-elem-quote">
-			欢迎管理员: <span class="x-red" style="font-size: 18px">${adminAccount}</span>
-			！
-			<%
-			Date dNow = new Date();
-			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			out.print("当前时间: " + ft.format(dNow));
-		%>
-		</blockquote>
 		<fieldset class="layui-elem-field">
 			<legend>数据统计</legend>
 			<div class="layui-field-box">
@@ -35,53 +28,53 @@
 								lay-anim="" lay-indicator="inside" lay-arrow="none"
 								style="width: 100%; height: 90px;">
 								<div carousel-item="">
-									<ul class="layui-row layui-col-space10 layui-this">
+									<ul class="layui-row layui-col-space10 layui-this"
+										style="text-align: center;">
+										<li class="layui-col-xs2"><a
+											onclick="x_admin_show('新增管理员','/WXMiniProgram/admin/admin_add',800,600)"
+											class="x-admin-backlog-body">
+												<p>
+													<cite style="color: red;">${adminTotals}</cite>
+												</p>
+												<h3>待审核</h3>
+										</a></li>
 										<li class="layui-col-xs2"><a
 											onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',600,500)"
 											class="x-admin-backlog-body">
-												<h3>管理员数量</h3>
 												<p>
 													<cite>${adminTotals}</cite>
 												</p>
+												<h3>管理员数量</h3>
 										</a></li>
-										<li class="layui-col-xs2"><a
-											onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',600,500)"
+										<li class="layui-col-xs2"><a href=""
 											class="x-admin-backlog-body">
-												<h3>合作公司数量</h3>
 												<p>
-													<cite>${companyTotals}</cite>
+													<cite class="criHolds"></cite>
 												</p>
-										</a></li>
-										<li class="layui-col-xs2"><a
-											href="../info/cri_list_limit?admin_university=${adminUniversity}&isExpired=0"
-											class="x-admin-backlog-body">
 												<h3>已举办数量</h3>
-												<p>
-													<cite>${criHolds}</cite>
-												</p>
 										</a></li>
 										<li class="layui-col-xs2"><a
 											href="../info/cri_list_limit?admin_university=${adminUniversity}&isExpired=1"
 											class="x-admin-backlog-body">
-												<h3>未举办数量</h3>
 												<p>
-													<cite>${criNHolds}</cite>
+													<cite class="criNHolds"></cite>
 												</p>
+												<h3>未举办数量</h3>
 										</a></li>
 										<li class="layui-col-xs2"><a href="javascript:;"
 											class="x-admin-backlog-body">
-												<h3>已有数据量</h3>
 												<p>
-													<cite>${criInfos}</cite>
+													<cite class="criTotals"></cite>
 												</p>
+												<h3>已有数据量</h3>
 										</a></li>
 										<li class="layui-col-xs2"><a
 											onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',600,500)"
 											class="x-admin-backlog-body">
-												<h3>反馈</h3>
 												<p>
 													<cite>${feedbacks}</cite>
 												</p>
+												<h3>反馈</h3>
 										</a></li>
 									</ul>
 								</div>
@@ -89,24 +82,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</fieldset>
-		<fieldset class="layui-elem-field">
-			<legend>系统通知</legend>
-			<div class="layui-field-box">
-				<table class="layui-table" lay-skin="line">
-					<tbody>
-						<tr>
-							<td><a class="x-a" href="/" target="_blank">新版x-admin
-									2.0上线了</a></td>
-						</tr>
-						<tr>
-							<td><a class="x-a" href="/" target="_blank">交流qq群:(519492808)</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</fieldset>
 		<fieldset class="layui-elem-field">
 			<legend>系统信息</legend>
@@ -154,5 +129,18 @@
 			</div>
 		</fieldset>
 	</div>
+	<script type="text/javascript">
+		// 数据可视化中赋值
+		$.ajax({
+			url : "/WXMiniProgram/info/criTotals",
+			success : function(res) {
+				$(".criHolds").text(res.criHolds);
+				$(".criNHolds").text(res.criNHolds);
+			},
+			fail : function(res) {
+				console.log("调用接口失败")
+			},
+		});
+	</script>
 </body>
 </html>

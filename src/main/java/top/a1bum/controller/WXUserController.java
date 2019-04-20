@@ -25,7 +25,7 @@ public class WXUserController {
 	public Map<String, Object> decrypt(@RequestParam("jscode") String jscode) throws IOException{
 		Map<String, Object> map = new HashMap<>();
 		String wx_id = WX.decrypt(jscode);
-		// 该user存储数据并不规范，目前仅作为�?个临时变量做判断�?
+		System.out.println(wx_id);
 //		System.out.println(wx_id);
 		WXUser user = new WXUser(wx_id, "", wxUserService.isExist(wx_id));
 		map.put("user", user);

@@ -17,7 +17,6 @@
 <script type="text/javascript"
 	src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <script src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
-
 <script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
 <script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
 </head>
@@ -37,15 +36,15 @@
 					<!-- 二级菜单 -->
 					<dd>
 						<a
-							onclick="x_admin_show('用户 最大化','https://www.baidu.com','','',true)"><i
+							onclick="x_admin_show('新增管理员','/WXMiniProgram/admin/admin_add',800,600)"><i
 							class="iconfont">&#xe6b8;</i>管理员</a>
 					</dd>
 					<dd>
-						<a onclick="x_admin_show('资讯','https://www.baidu.com')"><i
+						<a onclick="x_admin_show('新增校招信息','/WXMiniProgram/info/cri_add')"><i
 							class="iconfont">&#xe6a8;</i>校招信息</a>
 					</dd>
 					<dd>
-						<a onclick="x_admin_show('图片','https://www.baidu.com')"><i
+						<a onclick="x_admin_show('新增企业信息','https://www.baidu.com')"><i
 							class="iconfont">&#xe6a2;</i>企业信息</a>
 					</dd>
 				</dl></li>
@@ -57,7 +56,7 @@
 					<!-- 二级菜单 -->
 					<dd>
 						<a
-							onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',600,500)">个人信息</a>
+							onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',550,500)">个人信息</a>
 					</dd>
 					<dd>
 						<a href="/WXMiniProgram/login.html">切换帐号</a>
@@ -178,7 +177,7 @@
 			</div>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
-					<iframe src='toWelcome' frameborder="0" scrolling="yes"
+					<iframe src='toConsole' frameborder="0" scrolling="yes"
 						class="x-iframe"></iframe>
 				</div>
 			</div>
@@ -190,7 +189,7 @@
 	<!-- 中部结束 -->
 	<!-- 底部开始 -->
 	<div class="footer">
-		<div class="copyright">CopyRight @2019 a1bum.top</div>
+		<div class="copyright" style="text-align:center;">CopyRight @2019 a1bum.top</div>
 	</div>
 </body>
 </html>

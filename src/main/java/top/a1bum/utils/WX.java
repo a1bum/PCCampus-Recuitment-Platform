@@ -8,8 +8,8 @@ public class WX {
 	public static String decrypt(String jscode) {
 		String result = null;
 		try {
-		String[] args = new String[] { "H:\\Anacoda\\python.exe", "C:\\Users\\a1bum\\eclipse-workspace\\WXMiniProgram/"
-				+ "src/main/java/com/a1bum/utils/WXDecrypt.py", jscode };
+		String[] args = new String[] { "H:\\Anacoda\\python.exe", "E:\\eclipse-workspace\\WXMiniProgram/"
+				+ "src/main/java/top/a1bum/utils/WXDecrypt.py", jscode };
 		Process proc = Runtime.getRuntime().exec(args);
 		proc.waitFor();
 		InputStreamReader ir = new InputStreamReader(proc.getInputStream());

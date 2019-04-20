@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.CRIMapper">
+	<delete id="deleteById">
+		DELETE FROM campus_recruitment_info
+		WHERE id=#{id}
+	</delete>
 	<insert id="addCRI" parameterType="top.a1bum.entity.CRI">
 		insert into
 		campus_recruitment_info(wx_id,company_name,university_name,hold_date,start_time,end_time,locations)
@@ -37,12 +41,18 @@
 	<select id="getByKeyword" resultType="top.a1bum.entity.CRI">
 		SELECT * FROM
 		campus_recruitment_info
-		WHERE (university_name LIKE CONCAT('%', #{keyword}, '%')
-		OR company_name LIKE CONCAT('%', #{keyword}, '%')
-		OR locations LIKE concat('%', #{keyword}, '%')
-		OR university_short_name LIKE CONCAT('%', #{keyword}, '%'))
-		and
-		hold_date>=#{today}
+		<if test="!keyword.equals('')">
+			WHERE (university_name LIKE CONCAT('%', #{keyword}, '%')
+			OR company_name LIKE CONCAT('%', #{keyword}, '%')
+			OR locations LIKE
+			concat('%', #{keyword}, '%')
+			OR university_short_name LIKE CONCAT('%',
+			#{keyword}, '%'))
+		</if>
+		<if test="!date.equals('')">
+			and
+			hold_date>=#{date}
+		</if>
 	</select>
 	<select id="getByDate" resultType="top.a1bum.entity.CRI">
 		SELECT * FROM

@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -14,8 +14,8 @@
 	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
-	<script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
-	<script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
+<script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
+<script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
 </head>
 <body>
 	<jsp:useBean id="now" class="java.util.Date" scope="page" />
@@ -29,14 +29,15 @@
 	</div>
 	<div class="x-body">
 		<div class="layui-row">
-			<form class="layui-form layui-col-md12 x-so" id="search_form">
+			<form class="layui-form layui-col-md12 x-so" id="search_form" action="/WXMiniProgram/info/searchPC">
+			<input name="isExpired" hidden="true" value="${info.isExpired}"/>
+			<input name="admin_university" hidden="true" value="${info.university_name}"/>
 				<input class="layui-input" placeholder="举办日期" name="start"
-					id="start"> 
-					<i class="iconfont">&#xe6bf;</i>
-					<input type="text" name="key"
-					placeholder="关键字" autocomplete="off" class="layui-input"> 
+					id="start"> <i class="iconfont">&#xe6bf;</i> <input
+					type="text" name="key" placeholder="关键字" autocomplete="off"
+					class="layui-input">
 				<button class="layui-btn" lay-submit="" lay-filter="sreach"
-					id="search">
+					onclick="search">
 					<i class="layui-icon">&#xe615;</i>
 				</button>
 			</form>
@@ -45,30 +46,31 @@
 		<button class="layui-btn layui-btn-danger" onclick="delAll()">
 			<i class="layui-icon"></i>批量删除
 		</button>
-		<button class="layui-btn" onclick="x_admin_show('添加信息','/WXMiniProgram/info/cri_add')">
+		<button class="layui-btn"
+			onclick="x_admin_show('添加信息','/WXMiniProgram/info/cri_add')">
 			<i class="layui-icon"></i>添加
 		</button>
 		<span class="x-right" style="line-height: 40px">共有数据：${pageInfo.total}
 			条</span> </xblock>
-		<table class="layui-table">
+		<table class="layui-table x-admin" style="text-align:center;">
 			<thead>
 				<tr>
-					<th>
+					<th style="text-align:center;">
 						<div class="layui-unselect header layui-form-checkbox"
 							lay-skin="primary">
 							<i class="layui-icon">&#xe605;</i>
 						</div>
 					</th>
-					<th>宣讲编号</th>
-					<th>公司名称</th>
-					<th>举办时间</th>
-					<th>学校简称</th>
-					<th>所在学校</th>
-					<th>学校logo</th>
-					<th>具体地址</th>
-					<th>当前点击量</th>
-					<th>编辑</th>
-					<th>删除</th>
+					<th style="text-align:center;">宣讲编号</th>
+					<th style="text-align:center;">公司名称</th>
+					<th style="text-align:center;">举办时间</th>
+					<th style="text-align:center;">学校简称</th>
+					<th style="text-align:center;">所在学校</th>
+					<th style="text-align:center;">学校logo</th>
+					<th style="text-align:center;">具体地址</th>
+					<th style="text-align:center;">当前点击量</th>
+					<th style="text-align:center;">编辑</th>
+					<th style="text-align:center;">删除</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -88,13 +90,20 @@
 						<td>${info.logo_url}</td>
 						<td>${info.locations}</td>
 						<td>${info.hot}</td>
-						<td><a title="编辑"
-							onclick="x_admin_show('编辑','order-view.html')"
-							href="javascript:;"> <i class="iconfont">&#xe69e;</i></a></td>
-						<td class="td-manage"><a title="删除"
-							onclick="member_del(this,'要删除的id')" href="javascript:;"> <i
-								class="iconfont" style="color: red">&#xe69d;</i>
-						</a></td>
+						<td>
+							<button class="layui-btn">
+								<a title="编辑" onclick="x_admin_show('编辑','order-view.html')">
+									<i class="layui-icon" style="color: white">&#xe642;</i>
+								</a>
+							</button>
+						</td>
+						<td class="td-manage">
+							<button class="layui-btn layui-btn-danger">
+								<a title="删除" onclick="member_del(this,'要删除的id')"> <i
+									class="iconfont" style="color: white">&#xe69d;</i>
+								</a>
+							</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -116,6 +125,24 @@
 
 	</div>
 	<script>
+	
+		// 搜索事件
+		function search(){
+			$.ajax({
+				url: "/WXMiniProgram/info/searchPC",
+				data:{
+					admin_university: param,
+					keyword: $("#key").val(),
+					date: $("#start").val()
+				},
+				success:function(res){
+					console.log("返回数据" + res);
+				},
+				fail:function(res){
+					console.log("请求接口失败 " +res);
+				}
+			});
+		};
 		layui.use('laydate', function() {
 			var laydate = layui.laydate;
 			//执行一个laydate实例
@@ -123,40 +150,7 @@
 				elem : '#start' //指定元素
 			});
 		});
-
-		/*用户-停用*/
-		function member_stop(obj, id) {
-			layer.confirm('确认要停用吗？', function(index) {
-
-				if ($(obj).attr('title') == '启用') {
-
-					//发异步把用户状态进行更改
-					$(obj).attr('title', '停用')
-					$(obj).find('i').html('&#xe62f;');
-
-					$(obj).parents("tr").find(".td-status").find('span')
-							.addClass('layui-btn-disabled').html('已停用');
-					layer.msg('已停用!', {
-						icon : 5,
-						time : 1000
-					});
-
-				} else {
-					$(obj).attr('title', '启用')
-					$(obj).find('i').html('&#xe601;');
-
-					$(obj).parents("tr").find(".td-status").find('span')
-							.removeClass('layui-btn-disabled').html('已启用');
-					layer.msg('已启用!', {
-						icon : 5,
-						time : 1000
-					});
-				}
-
-			});
-		}
-
-		/*用户-删除*/
+		// 单个删除功能
 		function member_del(obj, id) {
 			layer.confirm('确认要删除吗？', function(index) {
 				//发异步删除数据
@@ -166,8 +160,8 @@
 					time : 1000
 				});
 			});
-		}
-
+		};
+		// 批量删除功能
 		function delAll(argument) {
 
 			var data = tableCheck.getData();
@@ -179,7 +173,7 @@
 				});
 				$(".layui-form-checked").not('.header').parents('tr').remove();
 			});
-		}
+		};
 	</script>
 </body>
 </html>

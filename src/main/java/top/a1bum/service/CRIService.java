@@ -34,4 +34,8 @@ public class CRIService {
 	public List<CRI> getByCampusAndIsExpired(String admin_university, Integer isExpired, String today, String time) {
 		return crimapper.getByCampusAndIsExpired(admin_university, isExpired, today, time);
 	}
+
+	public Boolean deleteByid(String id) {
+		return crimapper.deleteById(id);
+	}
 }
