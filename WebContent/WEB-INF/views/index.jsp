@@ -1,195 +1,247 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html class="x-admin-sm">
+﻿<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<title>后台登录-CRI-Campus</title>
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta charset="utf-8">
+<title>CRI--后台管理</title>
+<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="stylesheet" href="/WXMiniProgram/static/css/font.css">
-<link rel="stylesheet" href="/WXMiniProgram/static/css/xadmin.css">
-<script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<script src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
-<script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet"
+	href="/WXMiniProgram/static/lib/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"
+	media="all">
 </head>
-<body>
-	<!-- 顶部开始 -->
-	<div class="container">
-		<div class="logo">
-			<a href="">CRI-Campus</a>
-		</div>
-		<div class="left_open">
-			<i title="展开左侧栏" class="iconfont">&#xe699;</i>
-		</div>
-		<ul class="layui-nav left fast-add" lay-filter="">
-			<li class="layui-nav-item"><a href="javascript:;">新增<i
-					class="layui-icon">&#xe654;</a>
-				<dl class="layui-nav-child">
-					<!-- 二级菜单 -->
-					<dd>
-						<a
-							onclick="x_admin_show('新增管理员','/WXMiniProgram/admin/admin_add',800,600)"><i
-							class="iconfont">&#xe6b8;</i>管理员</a>
-					</dd>
-					<dd>
-						<a onclick="x_admin_show('新增校招信息','/WXMiniProgram/info/cri_add')"><i
-							class="iconfont">&#xe6a8;</i>校招信息</a>
-					</dd>
-					<dd>
-						<a onclick="x_admin_show('新增企业信息','https://www.baidu.com')"><i
-							class="iconfont">&#xe6a2;</i>企业信息</a>
-					</dd>
-				</dl></li>
-		</ul>
-		<ul class="layui-nav right" lay-filter="">
-			<li class="layui-nav-item">${adminUniversity}</li>
-			<li class="layui-nav-item"><a href="javascript:;">${adminAccount}</a>
-				<dl class="layui-nav-child">
-					<!-- 二级菜单 -->
-					<dd>
-						<a
-							onclick="x_admin_show('个人信息','/WXMiniProgram/admin/admin_info',550,500)">个人信息</a>
-					</dd>
-					<dd>
-						<a href="/WXMiniProgram/login.html">切换帐号</a>
-					</dd>
-					<dd>
-						<a href="/WXMiniProgram/index.html">退出</a>
-					</dd>
-				</dl></li>
-			<li class="layui-nav-item to-index"><a href="">前台首页</a></li>
-		</ul>
+<body class="layui-layout-body">
 
-	</div>
-	<!-- 顶部结束 -->
-	<!-- 中部开始 -->
-	<!-- 左侧菜单开始 -->
-	<div class="left-nav">
-		<div id="side-nav">
-			<ul id="nav">
-				<li><a href="javascript:;"> <i class="iconfont">&#xe6b8;</i>
-						<cite>管理员管理</cite> <i class="iconfont nav_right">&#xe697;</i>
-				</a>
-					<ul class="sub-menu">
-						<li><a _href="admin-list.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>管理员列表</cite>
-						</a></li>
-						<li><a _href="admin-role.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>角色管理</cite>
-						</a></li>
-						<li><a _href="admin-cate.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>权限分类</cite>
-						</a></li>
-						<li><a _href="admin-rule.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>权限管理</cite>
-						</a></li>
-					</ul></li>
-					<li><a href="javascript:;"> <i class="iconfont">&#xe6ba;</i>
-						<cite>合作公司</cite> <i class="iconfont nav_right">&#xe697;</i>
-				</a>
-					<ul class="sub-menu">
-						<li><a
-							_href="../info/cri_list_limit?admin_university=${adminUniversity}&isExpired=1">
-								<i class="iconfont">&#xe6a7;</i> <cite>现有伙伴</cite>
-						</a></li>
-					</ul></li>
-				<li><a href="javascript:;"> <i class="iconfont">&#xe73f;</i>
-						<cite>校招管理</cite> <i class="iconfont nav_right">&#xe697;</i>
-				</a>
-					<ul class="sub-menu">
-						<li><a
-							_href="../info/cri_list_limit?admin_university=${adminUniversity}&isExpired=1">
-								<i class="iconfont">&#xe6a7;</i> <cite>未举行</cite>
-						</a></li>
-						<li><a
-							_href="../info/cri_list_limit?admin_university=${adminUniversity}&isExpired=0">
-								<i class="iconfont">&#xe6a7;</i> <cite>已过期</cite>
-						</a></li>
-					</ul></li>
-				<li><a href="javascript:;"> <i class="iconfont">&#xe6ce;</i>
-						<cite>系统统计</cite> <i class="iconfont nav_right">&#xe697;</i>
-				</a>
-					<ul class="sub-menu">
-						<li><a _href="echarts1.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>拆线图</cite>
-						</a></li>
-						<li><a _href="echarts2.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>柱状图</cite>
-						</a></li>
-						<li><a _href="echarts3.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>地图</cite>
-						</a></li>
-						<li><a _href="echarts4.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>饼图</cite>
-						</a></li>
-						<li><a _href="echarts5.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>雷达图</cite>
-						</a></li>
-						<li><a _href="echarts6.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>k线图</cite>
-						</a></li>
-						<li><a _href="echarts7.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>热力图</cite>
-						</a></li>
-						<li><a _href="echarts8.html"> <i class="iconfont">&#xe6a7;</i>
-								<cite>仪表图</cite>
-						</a></li>
-					</ul></li>
-				<li><a href="javascript:;"> <i class="iconfont">&#xe82a;</i>
-						<cite>资质审核</cite> <i class="iconfont nav_right">&#xe697;</i>
-				</a>
-					<ul class="sub-menu">
-						<li><a
-							_href="">
-								<i class="iconfont">&#xe6a7;</i> <cite>公司审核</cite>
-						</a></li>
-						<li><a
-							_href="">
-								<i class="iconfont">&#xe6a7;</i> <cite>校招审核</cite>
-						</a></li>
-					</ul></li>
-			</ul>
-		</div>
-	</div>
-	<!-- <div class="x-slide_left"></div> -->
-	<!-- 左侧菜单结束 -->
-	<!-- 右侧主体开始 -->
-	<div class="page-content">
-		<div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
-			<ul class="layui-tab-title">
-				<li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
-			</ul>
-			<div class="layui-unselect layui-form-select layui-form-selected"
-				id="tab_right">
-				<dl>
-					<dd data-type="this">关闭当前</dd>
-					<dd data-type="other">关闭其它</dd>
-					<dd data-type="all">关闭全部</dd>
-				</dl>
+	<div id="LAY_app">
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header">
+				<!-- 头部区域 -->
+				<ul class="layui-nav layui-layout-left">
+					<li class="layui-nav-item layadmin-flexible" lay-unselect><a
+						href="javascript:;" layadmin-event="flexible" title="侧边伸缩"> <i
+							class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+					</a></li>
+					<li class="layui-nav-item layui-hide-xs" lay-unselect><a
+						href="https://a1bum.top/" target="_blank" title="前台"> <i
+							class="layui-icon layui-icon-website"></i>
+					</a></li>
+					<li class="layui-nav-item" lay-unselect><a href="javascript:;"
+						layadmin-event="refresh" title="刷新"> <i
+							class="layui-icon layui-icon-refresh-3"></i>
+					</a></li>
+					<li class="layui-nav-item layui-hide-xs" lay-unselect><input
+						type="text" placeholder="搜索..." autocomplete="off"
+						class="layui-input layui-input-search" layadmin-event="serach"
+						lay-action="template/search.html?keywords="></li>
+				</ul>
+				<ul class="layui-nav layui-layout-right"
+					lay-filter="layadmin-layout-right">
+
+					<li class="layui-nav-item" lay-unselect><a
+						lay-href="app/message/index.html" layadmin-event="message"
+						lay-text="消息中心"> <i class="layui-icon layui-icon-notice"></i>
+
+							<!-- 如果有新消息，则显示小圆点 --> <span class="layui-badge-dot"></span>
+					</a></li>
+					<li class="layui-nav-item layui-hide-xs" lay-unselect><a
+						href="javascript:;" layadmin-event="note"> <i
+							class="layui-icon layui-icon-note"></i>
+					</a></li>
+					<li class="layui-nav-item layui-hide-xs" lay-unselect><a
+						href="javascript:;" layadmin-event="fullscreen"> <i
+							class="layui-icon layui-icon-screen-full"></i>
+					</a></li>
+					<li class="layui-nav-item" lay-unselect><a href="javascript:;">
+							<cite>root</cite>
+					</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a lay-href="set/user/info.html">基本资料</a>
+							</dd>
+							<dd>
+								<a lay-href="set/user/password.html">修改密码</a>
+							</dd>
+							<hr>
+							<dd layadmin-event="logout" style="text-align: center;">
+								<a>退出</a>
+							</dd>
+						</dl></li>
+
+					<li class="layui-nav-item layui-hide-xs" lay-unselect><a
+						href="javascript:;" layadmin-event="about"><i
+							class="layui-icon layui-icon-more-vertical"></i></a></li>
+					<li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm"
+						lay-unselect><a href="javascript:;" layadmin-event="more"><i
+							class="layui-icon layui-icon-more-vertical"></i></a></li>
+				</ul>
 			</div>
-			<div class="layui-tab-content">
-				<div class="layui-tab-item layui-show">
-					<iframe src='toConsole' frameborder="0" scrolling="yes"
-						class="x-iframe"></iframe>
+
+			<!-- 侧边菜单 -->
+			<div class="layui-side layui-side-menu">
+				<div class="layui-side-scroll">
+					<div class="layui-logo" lay-href="home/console.html">
+						<span>CRI-Campus</span>
+					</div>
+
+					<ul class="layui-nav layui-nav-tree" lay-shrink="all"
+						id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+						<li data-name="home" class="layui-nav-item layui-nav-itemed">
+							<a href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
+								class="layui-icon layui-icon-home"></i> <cite>校招信息</cite>
+						</a>
+							<dl class="layui-nav-child">
+								<dd data-name="console">
+									<a data-type="">今日信息</a>
+								</dd>
+								<dd data-name="console" class="layui-this">
+									<a href="/WXMiniProgram/info/cri_list_limit?admin_university=兰州交通大学&isExpired=0">已举行</a>
+								</dd>
+								<dd data-name="console">
+									<a href="/WXMiniProgram/info/cri_list_limit?admin_university=兰州交通大学&isExpired=1">未举行</a>
+								</dd>
+							</dl>
+						</li>
+						<li data-name="component" class="layui-nav-item"><a
+							href="javascript:;" lay-tips="组件" lay-direction="2"> <i
+								class="layui-icon layui-icon-component"></i> <cite>公司信息</cite>
+						</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a lay-href="component/form/element.html">资质审核</a>
+								</dd>
+								<dd>
+									<a lay-href="component/form/group.html">宣讲会申请</a>
+								</dd>
+								<dd>
+									<a lay-href="component/form/group.html">合作伙伴</a>
+								</dd>
+							</dl>
+							</dl></li>
+						<li data-name="template" class="layui-nav-item"><a
+							href="javascript:;" lay-tips="页面" lay-direction="2"> <i
+								class="layui-icon layui-icon-template"></i> <cite>数据统计</cite>
+						</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a lay-href="template/personalpage.html">流量统计</a>
+								</dd>
+								<dd>
+									<a lay-href="template/addresslist.html">用户统计</a>
+								</dd>
+								<dd>
+									<a lay-href="template/caller.html">浏览器统计</a>
+								</dd>
+							</dl></li>
+						<li data-name="user" class="layui-nav-item"><a
+							href="javascript:;" lay-tips="用户" lay-direction="2"> <i
+								class="layui-icon layui-icon-user"></i> <cite>用户信息</cite>
+						</a>
+							<dl class="layui-nav-child">
+								<dd>
+									<a lay-href="user/user/list.html">网站用户</a>
+								</dd>
+								<dd>
+									<a lay-href="user/administrators/list.html">后台管理员</a>
+								</dd>
+								<dd>
+									<a lay-href="user/administrators/role.html">角色管理</a>
+								</dd>
+							</dl></li>
+						<li data-name="set" class="layui-nav-item"><a
+							href="javascript:;" lay-tips="设置" lay-direction="2"> <i
+								class="layui-icon layui-icon-set"></i> <cite>设置</cite>
+						</a>
+							<dl class="layui-nav-child">
+								<dd class="layui-nav-itemed">
+									<a href="javascript:;">系统设置</a>
+									<dl class="layui-nav-child">
+										<dd>
+											<a lay-href="set/system/website.html">网站设置</a>
+										</dd>
+										<dd>
+											<a lay-href="set/system/email.html">邮件服务</a>
+										</dd>
+									</dl>
+								</dd>
+								<dd class="layui-nav-itemed">
+									<a href="javascript:;">我的设置</a>
+									<dl class="layui-nav-child">
+										<dd>
+											<a lay-href="set/user/info.html">基本资料</a>
+										</dd>
+										<dd>
+											<a lay-href="set/user/password.html">修改密码</a>
+										</dd>
+									</dl>
+								</dd>
+							</dl></li>
+						<li data-name="get" class="layui-nav-item"><a
+							onclick="x_admin_show(,'www.layui.com/admin/#get',)"> <i
+								class="layui-icon layui-icon-auz"></i> <cite>授权</cite>
+						</a></li>
+					</ul>
 				</div>
 			</div>
-			<div id="tab_show"></div>
+
+			<!-- 页面标签 -->
+			<div class="layadmin-pagetabs" id="LAY_app_tabs">
+				<div class="layui-icon layadmin-tabs-control layui-icon-prev"
+					layadmin-event="leftPage"></div>
+				<div class="layui-icon layadmin-tabs-control layui-icon-next"
+					layadmin-event="rightPage"></div>
+				<div class="layui-icon layadmin-tabs-control layui-icon-down">
+					<ul class="layui-nav layadmin-tabs-select"
+						lay-filter="layadmin-pagetabs-nav">
+						<li class="layui-nav-item" lay-unselect><a
+							href="javascript:;"></a>
+							<dl class="layui-nav-child layui-anim-fadein">
+								<dd layadmin-event="closeThisTabs">
+									<a href="javascript:;">关闭当前标签页</a>
+								</dd>
+								<dd layadmin-event="closeOtherTabs">
+									<a href="javascript:;">关闭其它标签页</a>
+								</dd>
+								<dd layadmin-event="closeAllTabs">
+									<a href="javascript:;">关闭全部标签页</a>
+								</dd>
+							</dl></li>
+					</ul>
+				</div>
+				<div class="layui-tab" lay-unauto lay-allowClose="true"
+					lay-filter="layadmin-layout-tabs">
+					<ul class="layui-tab-title" id="LAY_app_tabsheader">
+						<li lay-id="home/console.html" lay-attr="home/console.html"
+							class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+					</ul>
+				</div>
+			</div>
+
+
+			<!-- 主体内容 -->
+			<div class="layui-body" id="LAY_app_body">
+				<div class="layadmin-tabsbody-item layui-show">
+					<iframe src="/WXMiniProgram/admin/toConsole" frameborder="0"
+						class="layadmin-iframe"></iframe>
+				</div>
+			</div>
+
+			<!-- 辅助元素，一般用于移动设备下遮罩 -->
+			<div class="layadmin-body-shade" layadmin-event="shade"></div>
 		</div>
 	</div>
-	<div class="page-content-bg"></div>
-	<!-- 右侧主体结束 -->
-	<!-- 中部结束 -->
-	<!-- 底部开始 -->
-	<div class="footer">
-		<div class="copyright" style="text-align:center;">CopyRight @2019 a1bum.top</div>
-	</div>
+	<script src="/WXMiniProgram/static/lib/layui/layui.js"></script>
+	<script src="/WXMiniProgram/static/js/xadmin.js"></script>
+	<script>
+		layui.use('element', function() {
+			var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+			//监听导航点击
+			element.on('nav(layadmin-system-side-menu)', function(elem) {
+				//console.log(elem)
+				layer.msg(elem.text());
+			});
+		});
+	</script>
 </body>
 </html>

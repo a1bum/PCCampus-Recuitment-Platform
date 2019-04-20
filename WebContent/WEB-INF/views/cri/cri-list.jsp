@@ -28,20 +28,6 @@
 			class="layui-icon" style="line-height: 30px">&#xe669;</i></a>
 	</div>
 	<div class="x-body">
-		<div class="layui-row">
-			<form class="layui-form layui-col-md12 x-so" id="search_form" action="/WXMiniProgram/info/searchPC">
-			<input name="isExpired" hidden="true" value="${info.isExpired}"/>
-			<input name="admin_university" hidden="true" value="${info.university_name}"/>
-				<input class="layui-input" placeholder="举办日期" name="start"
-					id="start"> <i class="iconfont">&#xe6bf;</i> <input
-					type="text" name="key" placeholder="关键字" autocomplete="off"
-					class="layui-input">
-				<button class="layui-btn" lay-submit="" lay-filter="sreach"
-					onclick="search">
-					<i class="layui-icon">&#xe615;</i>
-				</button>
-			</form>
-		</div>
 		<xblock>
 		<button class="layui-btn layui-btn-danger" onclick="delAll()">
 			<i class="layui-icon"></i>批量删除
@@ -52,25 +38,25 @@
 		</button>
 		<span class="x-right" style="line-height: 40px">共有数据：${pageInfo.total}
 			条</span> </xblock>
-		<table class="layui-table x-admin" style="text-align:center;">
+		<table class="layui-table x-admin" style="text-align: center;">
 			<thead>
 				<tr>
-					<th style="text-align:center;">
+					<th style="text-align: center;">
 						<div class="layui-unselect header layui-form-checkbox"
 							lay-skin="primary">
 							<i class="layui-icon">&#xe605;</i>
 						</div>
 					</th>
-					<th style="text-align:center;">宣讲编号</th>
-					<th style="text-align:center;">公司名称</th>
-					<th style="text-align:center;">举办时间</th>
-					<th style="text-align:center;">学校简称</th>
-					<th style="text-align:center;">所在学校</th>
-					<th style="text-align:center;">学校logo</th>
-					<th style="text-align:center;">具体地址</th>
-					<th style="text-align:center;">当前点击量</th>
-					<th style="text-align:center;">编辑</th>
-					<th style="text-align:center;">删除</th>
+					<th style="text-align: center;">宣讲编号</th>
+					<th style="text-align: center;">公司名称</th>
+					<th style="text-align: center;">举办时间</th>
+					<th style="text-align: center;">学校简称</th>
+					<th style="text-align: center;">所在学校</th>
+					<th style="text-align: center;">学校logo</th>
+					<th style="text-align: center;">具体地址</th>
+					<th style="text-align: center;">当前点击量</th>
+					<th style="text-align: center;">编辑</th>
+					<th style="text-align: center;">删除</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -90,20 +76,17 @@
 						<td>${info.logo_url}</td>
 						<td>${info.locations}</td>
 						<td>${info.hot}</td>
-						<td>
-							<button class="layui-btn">
-								<a title="编辑" onclick="x_admin_show('编辑','order-view.html')">
+						<td><a title="编辑"
+							onclick="x_admin_show('编辑','/WXMiniProgram/info/edit?id=${info.id}',550,700)">
+								<button class="layui-btn">
 									<i class="layui-icon" style="color: white">&#xe642;</i>
-								</a>
-							</button>
-						</td>
-						<td class="td-manage">
-							<button class="layui-btn layui-btn-danger">
-								<a title="删除" onclick="member_del(this,'要删除的id')"> <i
-									class="iconfont" style="color: white">&#xe69d;</i>
-								</a>
-							</button>
-						</td>
+								</button>
+						</a></td>
+						<td class="td-manage"><a title="删除"
+							onclick="member_del(this,${info.id})"><button
+									class="layui-btn layui-btn-danger">
+									<i class="iconfont" style="color: white">&#xe69d;</i>
+								</button> </a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -125,7 +108,6 @@
 
 	</div>
 	<script>
-	
 		// 搜索事件
 		function search(){
 			$.ajax({
@@ -153,12 +135,32 @@
 		// 单个删除功能
 		function member_del(obj, id) {
 			layer.confirm('确认要删除吗？', function(index) {
+				$.ajax({
+					url: "/WXMiniProgram/info/delete",
+					data: {id:id},
+					success:function(res){
+						if(res.msg == "删除成功"){
+							layer.msg('已删除!', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg('未删除!', {
+								icon : 0,
+								time : 1000
+							});
+						}
+					},
+					fail:function(res){
+						layer.msg('请求接口失败', {
+							icon : 0,
+							time : 1000
+						});
+					}
+				})
 				//发异步删除数据
 				$(obj).parents("tr").remove();
-				layer.msg('已删除!', {
-					icon : 1,
-					time : 1000
-				});
+				
 			});
 		};
 		// 批量删除功能

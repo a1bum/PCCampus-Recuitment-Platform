@@ -15,6 +15,10 @@ public class CRIService {
 	@Autowired
 	CRIMapper crimapper;
 	
+	public Boolean click(String id) {
+		return crimapper.click(id);
+	}
+	
 	public boolean addCRI(CRI paramCRI) {
 		return crimapper.addCRI(paramCRI);
 	}
@@ -37,5 +41,9 @@ public class CRIService {
 
 	public Boolean deleteByid(String id) {
 		return crimapper.deleteById(id);
+	}
+
+	public CRI getById(String id) {
+		return crimapper.getById(id);
 	}
 }

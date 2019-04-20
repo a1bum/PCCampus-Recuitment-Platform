@@ -1,4 +1,11 @@
-﻿$(function () {
+// Array.prototype.remove = function(val) { 
+//     var index = this.indexOf(val); 
+//     if (index > -1) { 
+//         return  this.splice(index, 1); 
+//     }
+
+// };
+$(function () {
 
     layui.use(['form','element'],
     function() {
@@ -142,18 +149,21 @@
         tabAdd: function(title,url,id){
           //新增一个Tab项
           element.tabAdd('xbs_tab', {
-            title: '<i class="layui-icon">&#xe66e;</i>&emsp;' + title 
+            title: title 
             ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
             ,id: id
           })
         }
         ,tabDelete: function(othis){
           //删除指定Tab项
-          element.tabDelete('xbs_tab', othis); //删除
+          element.tabDelete('xbs_tab', othis); //删除：“商品管理”
+          
+           
+          // othis.addClass('layui-btn-disabled');
         }
         ,tabChange: function(id){
           //切换到指定Tab项
-          element.tabChange('xbs_tab', id); //切换到
+          element.tabChange('xbs_tab', id); //切换到：用户管理
         }
       };
 
@@ -172,13 +182,14 @@
                         $(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
                     }
                 }
+                
             });
         },
         getData:function  () {
             var obj = $(".x-admin .layui-form-checked").not('.header');
             var arr=[];
             obj.each(function(index, el) {
-                arr.push(obj.eq(index).attr('id'));
+                arr.push(obj.eq(index).attr('data-id'));
             });
             return arr;
         }
@@ -274,6 +285,8 @@
 
             var url = $(this).children('a').attr('_href');
             var title = $(this).find('cite').html();
+            // var index  = $('.left-nav #nav li').index($(this));
+
             var is_refresh = $(this).attr('date-refresh')?true:false; 
 
             for (var i = 0; i <$('.x-iframe').length; i++) {

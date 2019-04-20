@@ -31,6 +31,13 @@ public class CRIController {
 	String today = sd.format(curDate.getTime()).split(" ")[0];
 	String time = sd.format(curDate.getTime()).split(" ")[1];
 	
+	
+	@RequestMapping("edit")
+	public String edit(@RequestParam("id")String id, Model model){
+		CRI cri = criService.getById(id);
+		model.addAttribute("cri", cri);
+		return "cri/cri-edit";
+	}
 
 	@ResponseBody
 	@RequestMapping("criTotals")
@@ -125,5 +132,10 @@ public class CRIController {
 		List<CRI> cries = criService.getByDate(key);
 		map.put("cri", cries);
 		return map;
+	}
+	
+	@RequestMapping("click")
+	public Boolean onClick(@RequestParam("id")String id) {
+		return criService.click(id);
 	}
 }

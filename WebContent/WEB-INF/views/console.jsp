@@ -14,8 +14,7 @@
 	href="/WXMiniProgram/static/lib/layui/css/layui.css" media="all">
 <link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"
 	media="all">
-<script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body onload="getSysInfo()">
 	<div class="layui-fluid">
@@ -161,15 +160,12 @@
 						<div class="layui-card">
 							<div class="layui-card-header">数据概览</div>
 							<div class="layui-card-body">
-
 								<div class="layui-carousel layadmin-carousel layadmin-dataview"
 									data-anim="fade" lay-filter="LAY-index-dataview">
 									<div carousel-item id="LAY-index-dataview">
 										<div>
 											<i class="layui-icon layui-icon-loading1 layadmin-loading"></i>
 										</div>
-										<div></div>
-										<div></div>
 									</div>
 								</div>
 
@@ -264,20 +260,31 @@
 		</div>
 	</div>
 	<script>
-	function getSysInfo(){
-		// 请求数据刷新页面
-		$.ajax({
-			url : "/WXMiniProgram/admin/sysinfo",
-			success : function(res) {
-				$(".cpuInfo").attr("style", "width: " + res.cpuInfo + "%");
-				$(".memInfo").attr("style", "width: " + res.memInfo + "%");
-				$(".cpuInfoText").text(res.cpuInfo + "%");
-				$(".memInfoText").text(res.memInfo + "%");
-			}
-		});
-		// 设置延迟
-		setTimeout(getSysInfo, 1000);
-	}
+		function getSysInfo() {
+			// 请求数据刷新页面
+			$.ajax({
+				url : "/WXMiniProgram/admin/sysinfo",
+				success : function(res) {
+					$(".cpuInfo").attr("style", "width: " + res.cpuInfo + "%");
+					$(".memInfo").attr("style", "width: " + res.memInfo + "%");
+					$(".cpuInfoText").text(res.cpuInfo + "%");
+					$(".memInfoText").text(res.memInfo + "%");
+					if (res.cputInfo >= 60) {
+						$(".cpuInfo").addClass("layui-bg-red");
+					} else {
+						$(".cpuInfo").removeClass("layui-bg-red");
+					}
+
+					if (res.memInfo >= 60) {
+						$(".memInfo").addClass("layui-bg-red");
+					} else {
+						$(".memInfo").removeClass("layui-bg-red");
+					}
+				}
+			});
+			// 设置延迟
+			setTimeout(getSysInfo, 1000);
+		}
 	</script>
 </body>
 </html>

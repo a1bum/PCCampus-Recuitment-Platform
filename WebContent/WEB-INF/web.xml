@@ -11,6 +11,11 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/building.jsp</location>
+	</error-page>
+
 	<!-- spring -->
 	<!-- needed for ContextLoaderListener -->
 	<context-param>

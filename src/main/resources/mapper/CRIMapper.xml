@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.CRIMapper">
+	<update id="click">
+		UPDATE campus_recruitment_info
+		SET hot=hot+1
+		WHERE
+		id=#{id};
+	</update>
 	<delete id="deleteById">
 		DELETE FROM campus_recruitment_info
 		WHERE id=#{id}
@@ -12,6 +18,11 @@
 		campus_recruitment_info(wx_id,company_name,university_name,hold_date,start_time,end_time,locations)
 		values(#{wx_id},#{company_name},#{university_name},#{hold_date},#{start_time},#{end_time},#{locations})
 	</insert>
+	<select id="getById" resultType="top.a1bum.entity.CRI">
+		SELECT * FROM
+		campus_recruitment_info
+		WHERE id=#{id}
+	</select>
 	<select id="getByCampusAndIsExpired"
 		resultType="top.a1bum.entity.CRI">
 		select * from campus_recruitment_info
