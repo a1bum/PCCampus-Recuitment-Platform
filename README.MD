@@ -14,11 +14,21 @@
 
 ## 更新日志
 
+### 2019-04-21
+
+1. 修改后台管理主页为 layui-admin风格（[layuiadmin](https://www.layui.com/admin/std/dist/views/)）；
+2. 修复“cpu 和 内存利用率识别不准”问题（[java获取系统CPU、内存占用](https://blog.csdn.net/callmev6/article/details/83176840)）；
+3. 修复“layui 复选框不渲染”问题（[为什么表单不显示？](https://www.layui.com/doc/base/faq.html#form)）；
+4. 删除 xadmin.js 中无用代码，并处理相关依赖；
+5. 实现“提取页面 javascript 到 xadmin.js 文件实现复用”；
+6. 实现“layui 左侧菜单栏二级菜单动画” （[后台布局](https://www.layui.com/demo/admin.html)）；
+7. 实现“OS/Tomcat/MySQL 版本获取及前端页面显示功能”（[java获取操作系统信息](https://mao1985.iteye.com/blog/190378)、[jsp 用java代码获得tomcat版本号](https://heisetoufa.iteye.com/blog/406791)、[Java获取mysql数据库元数据](https://blog.csdn.net/Mr_Lonely_f/article/details/48805671)）；
+8. 实现“信息添加的上传附件功能，并限制上传文件格式和大小”（[图片/文件上传 - layui.upload](https://www.layui.com/doc/modules/upload.html)）。
+
 ### 2019-04-17
 
 1. 修复“编辑和删除操作识别区域太小”问题；
 2. 实现“ajax异步单项删除信息”功能；
-3. 
 
 ### 2019-04-15
 

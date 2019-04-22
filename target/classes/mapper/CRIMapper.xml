@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.CRIMapper">
+	<update id="modify" parameterType="top.a1bum.entity.CRI">
+		UPDATE campus_recruitment_info
+		SET
+		company_name=#{company_name},hold_date=#{hold_date},start_time=#{start_time},locations=#{locations},detail=#{detail}
+		WHERE id=#{id}
+	</update>
 	<update id="click">
 		UPDATE campus_recruitment_info
 		SET hot=hot+1
@@ -36,6 +42,7 @@
 			AND hold_date&lt;#{today}
 			AND start_time&lt;#{time}
 		</if>
+		ORDER BY hold_date DESC
 	</select>
 	<select id="getByCampus" resultType="top.a1bum.entity.CRI">
 		select * from

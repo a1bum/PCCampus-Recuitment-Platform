@@ -17,22 +17,25 @@ public class CRI
   
   public CRI() {}
   
-  public CRI(String wx_id, String company_name, String university_name, String university_short_name, String hold_date, String start_time, String locations, String logo_url, String hot, String isExpired, String detail)
-  {
-    this.wx_id = wx_id;
-    this.company_name = company_name;
-    this.university_name = university_name;
-    this.university_short_name = university_short_name;
-    this.hold_date = hold_date;
-    this.start_time = start_time;
-    this.locations = locations;
-    this.logo_url = logo_url;
-    this.hot = hot;
-    this.isExpired = isExpired;
-    this.detail = detail;
-  }
-  
-  public String toString()
+  public CRI(Integer id, String wx_id, String company_name, String university_name, String university_short_name,
+		String hold_date, String start_time, String locations, String logo_url, String hot, String isExpired,
+		String detail) {
+	super();
+	this.id = id;
+	this.wx_id = wx_id;
+	this.company_name = company_name;
+	this.university_name = university_name;
+	this.university_short_name = university_short_name;
+	this.hold_date = hold_date;
+	this.start_time = start_time;
+	this.locations = locations;
+	this.logo_url = logo_url;
+	this.hot = hot;
+	this.isExpired = isExpired;
+	this.detail = detail;
+}
+
+public String toString()
   {
     return 
     

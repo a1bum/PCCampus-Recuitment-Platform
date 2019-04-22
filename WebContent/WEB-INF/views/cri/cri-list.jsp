@@ -15,7 +15,6 @@
 <script type="text/javascript"
 	src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
-<script type="text/javascript" src="/WXMiniProgram/static/js/cookie.js"></script>
 </head>
 <body>
 	<jsp:useBean id="now" class="java.util.Date" scope="page" />
@@ -33,7 +32,7 @@
 			<i class="layui-icon"></i>批量删除
 		</button>
 		<button class="layui-btn"
-			onclick="x_admin_show('添加信息','/WXMiniProgram/info/cri_add')">
+			onclick="x_admin_show('添加信息','/WXMiniProgram/info/cri_add',700,800)">
 			<i class="layui-icon"></i>添加
 		</button>
 		<span class="x-right" style="line-height: 40px">共有数据：${pageInfo.total}
@@ -77,7 +76,7 @@
 						<td>${info.locations}</td>
 						<td>${info.hot}</td>
 						<td><a title="编辑"
-							onclick="x_admin_show('编辑','/WXMiniProgram/info/edit?id=${info.id}',550,700)">
+							onclick="x_admin_show('编辑','/WXMiniProgram/info/cri_edit?id=${info.id}',650,700)">
 								<button class="layui-btn">
 									<i class="layui-icon" style="color: white">&#xe642;</i>
 								</button>
@@ -108,23 +107,6 @@
 
 	</div>
 	<script>
-		// 搜索事件
-		function search(){
-			$.ajax({
-				url: "/WXMiniProgram/info/searchPC",
-				data:{
-					admin_university: param,
-					keyword: $("#key").val(),
-					date: $("#start").val()
-				},
-				success:function(res){
-					console.log("返回数据" + res);
-				},
-				fail:function(res){
-					console.log("请求接口失败 " +res);
-				}
-			});
-		};
 		layui.use('laydate', function() {
 			var laydate = layui.laydate;
 			//执行一个laydate实例
@@ -132,50 +114,6 @@
 				elem : '#start' //指定元素
 			});
 		});
-		// 单个删除功能
-		function member_del(obj, id) {
-			layer.confirm('确认要删除吗？', function(index) {
-				$.ajax({
-					url: "/WXMiniProgram/info/delete",
-					data: {id:id},
-					success:function(res){
-						if(res.msg == "删除成功"){
-							layer.msg('已删除!', {
-								icon : 1,
-								time : 1000
-							});
-						}else{
-							layer.msg('未删除!', {
-								icon : 0,
-								time : 1000
-							});
-						}
-					},
-					fail:function(res){
-						layer.msg('请求接口失败', {
-							icon : 0,
-							time : 1000
-						});
-					}
-				})
-				//发异步删除数据
-				$(obj).parents("tr").remove();
-				
-			});
-		};
-		// 批量删除功能
-		function delAll(argument) {
-
-			var data = tableCheck.getData();
-
-			layer.confirm('确认要删除吗？' + data, function(index) {
-				//捉到所有被选中的，发异步进行删除
-				layer.msg('删除成功', {
-					icon : 1
-				});
-				$(".layui-form-checked").not('.header').parents('tr').remove();
-			});
-		};
 	</script>
 </body>
 </html>

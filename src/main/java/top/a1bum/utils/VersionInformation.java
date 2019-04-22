@@ -1,13 +1,15 @@
 package top.a1bum.utils;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
+import com.sun.management.OperatingSystemMXBean;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+@SuppressWarnings("restriction")
 public class VersionInformation {
+	OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
 	public String getSysInfo() {
 		Properties props = System.getProperties();
@@ -31,15 +33,14 @@ public class VersionInformation {
 	}
 
 	public String getCpuInfo() {
-		OperatingSystemMXBean osMxBean = ManagementFactory.getOperatingSystemMXBean();
-		Integer cpuLoad = (int) (osMxBean.getSystemLoadAverage()*100);
+		Integer cpuLoad = (int) (osMxBean.getSystemCpuLoad()*100);
 		return cpuLoad.toString();
 	}
 	
 	public String getMemInfo() {
-		Long total = Runtime.getRuntime().totalMemory();
-		Long free = Runtime.getRuntime().freeMemory();
-		Long memLoad = (total-free)*100/total;
+		double total = osMxBean.getTotalPhysicalMemorySize();
+		double free = osMxBean.getFreePhysicalMemorySize();
+		Integer memLoad = (int) ((total-free)/total*100);
 		return memLoad.toString();
 	}
 

@@ -32,7 +32,21 @@ public class CRIController {
 	String time = sd.format(curDate.getTime()).split(" ")[1];
 	
 	
-	@RequestMapping("edit")
+	@ResponseBody
+	@RequestMapping("modify")
+	public Map<String, Object> modify(@RequestParam("id")Integer id, @RequestParam("company_name") String company_name,
+			@RequestParam("hold_date")String hold_date,
+			@RequestParam("start_time")String start_time,
+			@RequestParam("locations")String locations,
+			@RequestParam("detail")String detail){
+		Map<String,Object> map = new HashMap<>();
+		CRI cri = new CRI(id,"0",company_name,"","",hold_date,start_time,locations,"","","",detail);
+		Boolean result = criService.modify(cri);
+		map.put("msg", result.toString());
+		return map;
+	}
+	
+	@RequestMapping("cri_edit")
 	public String edit(@RequestParam("id")String id, Model model){
 		CRI cri = criService.getById(id);
 		model.addAttribute("cri", cri);
@@ -81,10 +95,10 @@ public class CRIController {
 	}
 
 	@RequestMapping("add")
-	public void addCRI(String company_name, String company_official, String hold_date, String start_time,
-			String end_time, String university_name, String locations) {
-////		CRI cri = new CRI(company_name,company_official,hold_date,start_time,end_time,university_name,locations);
-//		criService.addCRI(cri);
+	public void addCRI(String company_name, String hold_date, String start_time,
+			 String locations,String details) {
+		CRI cri = new CRI();
+		criService.addCRI(cri);
 	}
 
 	@ResponseBody

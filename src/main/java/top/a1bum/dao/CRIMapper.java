@@ -18,4 +18,5 @@ public interface CRIMapper {
 			@Param("isExpired")Integer isExpired, @Param("today")String today, @Param("time") String time);
 	public abstract Boolean deleteById(String id);
 	public abstract CRI getById(String id);
+	public abstract Boolean modify(CRI cri);
 }

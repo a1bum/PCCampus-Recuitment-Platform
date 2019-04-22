@@ -46,4 +46,8 @@ public class CRIService {
 	public CRI getById(String id) {
 		return crimapper.getById(id);
 	}
+
+	public Boolean modify(CRI cri) {
+		return crimapper.modify(cri);
+	}
 }
