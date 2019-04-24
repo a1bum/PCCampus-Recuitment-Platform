@@ -18,13 +18,13 @@
 	<context:property-placeholder
 		location="classpath:dbconfig.properties" />
 
-	<!-- c3p0数据源 -->
+	<!-- druid数据源 -->
 	<bean id="dataSource"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="jdbcUrl" value="${url}"></property>
-		<property name="driverClass" value="${driver}"></property>
-		<property name="user" value="${user}"></property>
-		<property name="password" value="${pwd}"></property>
+		class="com.alibaba.druid.pool.DruidDataSource"  init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc-url}"></property>
+		<property name="driverClassName" value="${jdbc-driver}"></property>
+		<property name="username" value="${jdbc-user}"></property>
+		<property name="password" value="${jdbc-pwd}"></property>
 	</bean>
 
 	<!-- 事务管理器 -->

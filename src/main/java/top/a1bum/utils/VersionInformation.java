@@ -21,9 +21,9 @@ public class VersionInformation {
 		String mysqlVersion = "";
 		try {
 			props.load(VersionInformation.class.getResourceAsStream("/dbconfig.properties"));
-			Class.forName(props.getProperty("driver"));
-			Connection con = DriverManager.getConnection(props.getProperty("url"), props.getProperty("user"),
-					props.getProperty("pwd"));
+			Class.forName(props.getProperty("jdbc-driver"));
+			Connection con = DriverManager.getConnection(props.getProperty("jdbc-url"), props.getProperty("jdbc-user"),
+					props.getProperty("jdbc-pwd"));
 			DatabaseMetaData dmd = con.getMetaData();
 			mysqlVersion = dmd.getDatabaseProductVersion().split("-0")[0];
 		} catch (Exception e) {

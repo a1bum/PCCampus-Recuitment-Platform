@@ -79,7 +79,7 @@
 	</form>
 	<script src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
 	<script src="/WXMiniProgram/static/js/xadmin.js" charset="utf-8"></script>
-	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 	<script type="text/javascript">
 		function modify(){
 			// 判断

@@ -9,7 +9,7 @@ public class WXForLinux {
 		String result = null;
 		try {
 		String[] args = new String[] { "/usr/bin/python", 
-				"/root/tomcat/webapps/WXMiniProgram/WEB-INF/classes/com/a1bum/utils/WXDecrypt.py", jscode };
+				"/root/tomcat/webapps/WXMiniProgram/WEB-INF/classes/top/a1bum/utils/WXDecrypt.py", jscode };
 		Process proc = Runtime.getRuntime().exec(args);
 		proc.waitFor();
 		InputStreamReader ir = new InputStreamReader(proc.getInputStream());

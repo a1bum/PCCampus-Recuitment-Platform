@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.a1bum.entity.WXUser;
 import top.a1bum.service.WXUserService;
-import top.a1bum.utils.WX;
+import top.a1bum.utils.WXForLinux;
 
 @RequestMapping("WXUser")
 @Controller
@@ -26,7 +26,6 @@ public class WXUserController {
 		Map<String, Object> map = new HashMap<>();
 		String wx_id = WX.decrypt(jscode);
 		System.out.println(wx_id);
-//		System.out.println(wx_id);
 		WXUser user = new WXUser(wx_id, "", wxUserService.isExist(wx_id));
 		map.put("user", user);
 		return map;

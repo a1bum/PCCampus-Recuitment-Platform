@@ -11,109 +11,159 @@
 <link rel="stylesheet" href="/WXMiniProgram/static/css/font.css">
 <link rel="stylesheet" href="/WXMiniProgram/static/css/xadmin.css">
 <script type="text/javascript"
-	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script type="text/javascript"
 	src="/WXMiniProgram/static/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="/WXMiniProgram/static/js/xadmin.js"></script>
 </head>
 <body>
-	<jsp:useBean id="now" class="java.util.Date" scope="page" />
-	<div class="x-nav">
-		<span class="layui-breadcrumb"> <a
-			href="/WXMiniProgram/admin/toIndex">首页</a> <a> <cite>${isHolded}</cite></a>
-		</span> <a class="layui-btn layui-btn-small"
-			style="line-height: 1.6em; margin-top: 3px; float: right"
-			href="javascript:location.replace(location.href);" title="刷新"> <i
-			class="layui-icon" style="line-height: 30px">&#xe669;</i></a>
-	</div>
 	<div class="x-body">
-		<xblock>
-		<button class="layui-btn layui-btn-danger" onclick="delAll()">
-			<i class="layui-icon"></i>批量删除
-		</button>
-		<button class="layui-btn"
-			onclick="x_admin_show('添加信息','/WXMiniProgram/info/cri_add',700,800)">
-			<i class="layui-icon"></i>添加
-		</button>
-		<span class="x-right" style="line-height: 40px">共有数据：${pageInfo.total}
-			条</span> </xblock>
-		<table class="layui-table x-admin" style="text-align: center;">
-			<thead>
-				<tr>
-					<th style="text-align: center;">
-						<div class="layui-unselect header layui-form-checkbox"
-							lay-skin="primary">
-							<i class="layui-icon">&#xe605;</i>
-						</div>
-					</th>
-					<th style="text-align: center;">宣讲编号</th>
-					<th style="text-align: center;">公司名称</th>
-					<th style="text-align: center;">举办时间</th>
-					<th style="text-align: center;">学校简称</th>
-					<th style="text-align: center;">所在学校</th>
-					<th style="text-align: center;">学校logo</th>
-					<th style="text-align: center;">具体地址</th>
-					<th style="text-align: center;">当前点击量</th>
-					<th style="text-align: center;">编辑</th>
-					<th style="text-align: center;">删除</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${pageInfo.list}" var="info">
-					<tr>
-						<td>
-							<div class="layui-unselect layui-form-checkbox"
-								lay-skin="primary" data-id='2'>
-								<i class="layui-icon">&#xe605;</i>
-							</div>
-						</td>
-						<td>${info.id}</td>
-						<td>${info.company_name}</td>
-						<td>${info.hold_date}&emsp;${info.start_time}</td>
-						<td>${info.university_short_name}</td>
-						<td>${info.university_name}</td>
-						<td>${info.logo_url}</td>
-						<td>${info.locations}</td>
-						<td>${info.hot}</td>
-						<td><a title="编辑"
-							onclick="x_admin_show('编辑','/WXMiniProgram/info/cri_edit?id=${info.id}',650,700)">
-								<button class="layui-btn">
-									<i class="layui-icon" style="color: white">&#xe642;</i>
-								</button>
-						</a></td>
-						<td class="td-manage"><a title="删除"
-							onclick="member_del(this,${info.id})"><button
-									class="layui-btn layui-btn-danger">
-									<i class="iconfont" style="color: white">&#xe69d;</i>
-								</button> </a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-
+		<table class="layui-table x-admin" lay-filter="info_table"
+			id="info_table">
 		</table>
-		<div class="page">
-			<div>
-				<c:if test="${pageInfo.hasPreviousPage  == true}">
-					<a class="prev"
-						href="/WXMiniProgram/info/cri_list_limit?p=${pageInfo.pageNum-1}&admin_university=${adminUniversity}&isExpired=${isExpired}">&lt;&lt;</a>
-				</c:if>
-				<a class="current" href="">${pageInfo.pageNum}</a>
-				<c:if test="${pageInfo.hasNextPage == true}">
-					<a class="next"
-						href="/WXMiniProgram/info/cri_list_limit?p=${pageInfo.pageNum+1}&admin_university=${adminUniversity}&isExpired=${isExpired}">&gt;&gt;</a>
-				</c:if>
-			</div>
-		</div>
-
+		<script type="text/html" id="toolbarTable">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-danger layui-icon" lay-event="getCheckData" style="font-size:12px">批量删除 &#xe640;</button>
+    <button class="layui-btn layui-icon" lay-event="getCheckLength" style="font-size:12px">添加 &#xe608;</button>
+  </div>
+	</script>
+		<script type="text/html" id="toolbarRow">
+  <a class="layui-btn layui-icon" lay-event="edit">编辑 &#xe642;</a>
+  <a class="layui-btn layui-btn-danger layui-icon" lay-event="del">删除 &#xe640;</a>
+	</script>
 	</div>
 	<script>
-		layui.use('laydate', function() {
-			var laydate = layui.laydate;
-			//执行一个laydate实例
-			laydate.render({
-				elem : '#start' //指定元素
-			});
+	layui.use('table', function() {
+		var table = layui.table;
+		var isExpired = '<%=request.getAttribute("isExpired")%>';
+		table.render({
+			elem : '#info_table',
+			url : '/WXMiniProgram/info/cri_list_expired?isExpired=' + isExpired,
+			page : true,
+			limit : 15,
+			limits : [ 15, 30, 50, 100 ],
+			toolbar : '#toolbarTable',//表级工具栏
+			// 写解析接口
+			parseData : function(res) {
+				return {
+					"code" : res.code,
+					"count" : res.data.total,
+					"data" : res.data.list
+				};
+			},
+			// 写表头
+			cols : [ [ {
+				type : 'checkbox',
+				align : 'center',
+				fixed : 'left'
+			}, {
+				field : 'id',
+				align : 'center',
+				width : 100,
+				title : '宣讲编号'
+			}, {
+				field : 'company_name',
+				align : 'center',
+				title : '公司名称'
+			}, {
+				field : 'hold_date',
+				align : 'center',
+				width : 100,
+				title : '举办日期',
+			}, {
+				field : 'start_time',
+				align : 'center',
+				width : 100,
+				title : '开始时间'
+			}, {
+				field : 'university_short_name',
+				align : 'center',
+				width : 100,
+				title : '学校简称'
+			}, {
+				field : 'university_name',
+				align : 'center',
+				title : '学校名称'
+			}, {
+				field : 'logo_url',
+				align : 'center',
+				title : '学校logo'
+			}, {
+				field : 'locations',
+				align : 'center',
+				title : '具体地址'
+			}, {
+				field : 'hot',
+				align : 'center',
+				width : 80,
+				title : '点击量',
+			}, {
+				title : '行级工具栏',
+				fixed : 'right',
+				align : 'center',
+				toolbar : '#toolbarRow'
+			} ] ]
+		})
+		//列工具栏事件
+		table.on('toolbar(info_table)', function(obj) {
+			var checkStatus = table.checkStatus(obj.config.id);
+			switch (obj.event) {
+			case 'getCheckData':
+				var datas = checkStatus.data;
+				var list = [];
+				for(var data of datas){
+					list.push(data.id);
+				}
+				layer.confirm('真的删除编号为 ' + list + ' 的数据吗', function() {
+					del(list);
+					layer.close(index);
+				});
+				break;
+			case 'getCheckLength':
+				x_admin_show("添加",'/WXMiniProgram/info/cri_add', 700,820);
+				break;
+			};
 		});
+		//监听行工具事件
+		table.on('tool(info_table)', function(obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+			var data = obj.data //获得当前行数据
+			, layEvent = obj.event; //获得 lay-event 对应的值
+			if (layEvent === 'del') {
+				var list = [];
+				list.push(data.id);
+				layer.confirm('真的删除编号为 ' + data.id + ' 的数据吗', function(index) {
+					//向服务端发送删除指令
+					del(list);
+					layer.close(index);
+				});
+			} else if (layEvent === 'edit') {
+				var url = '/WXMiniProgram/info/cri_edit?id=' + data.id;
+				x_admin_show("编辑", url, 650, 750);
+			}
+		});
+	});
+	function del(list){
+		$.ajax({
+			url : '/WXMiniProgram/info/delete',
+				data : {id: list},
+				success : function(res) {
+					var msg = (res.msg == "true" ? "删除成功"
+							: "删除失败");
+					var icon = (res.msg == "true" ? 1 : 0);
+					layer.msg(msg, {
+						icon : icon,
+						time : 1000
+					});
+					setTimeout(function(){parent.location.reload()}, 1000);
+				},
+				fail : function(res) {
+					layer.msg("请求接口失败", {
+						icon : 0,
+						time : 1000
+					});
+				},
+			});
+	}
 	</script>
 </body>
 </html>

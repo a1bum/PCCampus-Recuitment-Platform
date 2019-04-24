@@ -14,7 +14,7 @@
 	href="/WXMiniProgram/static/lib/layui/css/layui.css" media="all">
 <link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"
 	media="all">
-<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
 <body onload="getSysInfo()">
 	<div class="layui-fluid">
@@ -269,16 +269,22 @@
 					$(".memInfo").attr("style", "width: " + res.memInfo + "%");
 					$(".cpuInfoText").text(res.cpuInfo + "%");
 					$(".memInfoText").text(res.memInfo + "%");
-					if (res.cputInfo >= 60) {
+					if (res.cpuInfo >= 60) {
+						$(".cpuInfo").addClass("layui-bg-orange");
+					} else if(res.cpuInfo >= 90){
 						$(".cpuInfo").addClass("layui-bg-red");
-					} else {
+					}else{
+						$(".cpuInfo").removeClass("layui-bg-orange");
 						$(".cpuInfo").removeClass("layui-bg-red");
 					}
 
 					if (res.memInfo >= 60) {
-						$(".memInfo").addClass("layui-bg-red");
-					} else {
-						$(".memInfo").removeClass("layui-bg-red");
+						$(".memInfo").addClass("layui-bg-orange");
+					} else if(res.memInfo >= 90){
+						$(".cpuInfo").addClass("layui-bg-red");
+					}else{
+						$(".cpuInfo").removeClass("layui-bg-orange");
+						$(".cpuInfo").removeClass("layui-bg-red");
 					}
 				}
 			});

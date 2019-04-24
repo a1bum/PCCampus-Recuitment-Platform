@@ -9,11 +9,11 @@ import top.a1bum.dao.AdminMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:application.xml")
 public class TestAdmin {
-	@Autowired
+	@Autowired 
 	AdminMapper adminMapper;
 	
 	@Test
-	public void testGetColleagues() {
-		System.out.println(adminMapper.getColleagues("兰州交通大学"));
+	public void testLogin() {
+		System.out.println(adminMapper.login("root", "toor"));
 	}
 }

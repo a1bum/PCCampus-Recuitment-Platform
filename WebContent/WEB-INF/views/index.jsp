@@ -92,14 +92,14 @@
 								class="layui-icon layui-icon-home"></i> <cite>校招信息</cite>
 						</a>
 							<dl class="layui-nav-child">
-								<dd data-name="console">
-									<a data-type="">今日信息</a>
+								<dd>
+									<a>今日信息</a>
 								</dd>
-								<dd data-name="console" class="layui-this">
-									<a href="/WXMiniProgram/info/cri_list_limit?admin_university=兰州交通大学&isExpired=0">已举行</a>
+								<dd>
+									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0" class="layui-this" onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
 								</dd>
-								<dd data-name="console">
-									<a href="/WXMiniProgram/info/cri_list_limit?admin_university=兰州交通大学&isExpired=1">未举行</a>
+								<dd>
+									<a onclick="tabAdd('未举行','/WXMiniProgram/info/cri_list_limit?isExpired=1', 'isNHolds')">未举行</a>
 								</dd>
 							</dl>
 						</li>
@@ -177,8 +177,7 @@
 									</dl>
 								</dd>
 							</dl></li>
-						<li data-name="get" class="layui-nav-item"><a
-							onclick="x_admin_show(,'www.layui.com/admin/#get',)"> <i
+						<li data-name="get" class="layui-nav-item"><a> <i
 								class="layui-icon layui-icon-auz"></i> <cite>授权</cite>
 						</a></li>
 					</ul>
@@ -197,22 +196,22 @@
 						<li class="layui-nav-item" lay-unselect><a
 							href="javascript:;"></a>
 							<dl class="layui-nav-child layui-anim-fadein">
-								<dd layadmin-event="closeThisTabs">
-									<a href="javascript:;">关闭当前标签页</a>
+								<dd>
+									<a href="javascript:;" onclick="closeThisTabs()">关闭当前标签页</a>
 								</dd>
-								<dd layadmin-event="closeOtherTabs">
-									<a href="javascript:;">关闭其它标签页</a>
+								<dd>
+									<a href="javascript:;" onclick="closeOtherTabs()">关闭其它标签页</a>
 								</dd>
-								<dd layadmin-event="closeAllTabs">
-									<a href="javascript:;">关闭全部标签页</a>
+								<dd>
+									<a href="javascript:;" onclick="closeAllTabs()">关闭全部标签页</a>
 								</dd>
 							</dl></li>
 					</ul>
 				</div>
 				<div class="layui-tab" lay-unauto lay-allowClose="true"
-					lay-filter="layadmin-layout-tabs">
+					lay-filter="console_tab">
 					<ul class="layui-tab-title" id="LAY_app_tabsheader">
-						<li lay-id="home/console.html" lay-attr="home/console.html"
+						<li lay-id="console" lay-attr="home/console.html"
 							class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
 					</ul>
 				</div>
@@ -221,10 +220,11 @@
 
 			<!-- 主体内容 -->
 			<div class="layui-body" id="LAY_app_body">
-				<div class="layadmin-tabsbody-item layui-show">
+				<div class="layui-tab-item layui-show">
 					<iframe src="/WXMiniProgram/admin/toConsole" frameborder="0"
 						class="layadmin-iframe"></iframe>
 				</div>
+
 			</div>
 
 			<!-- 辅助元素，一般用于移动设备下遮罩 -->
@@ -233,15 +233,31 @@
 	</div>
 	<script src="/WXMiniProgram/static/lib/layui/layui.js"></script>
 	<script src="/WXMiniProgram/static/js/xadmin.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 	<script>
 		layui.use('element', function() {
 			var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 			//监听导航点击
 			element.on('nav(layadmin-system-side-menu)', function(elem) {
-				//console.log(elem)
-				layer.msg(elem.text());
 			});
 		});
+		function tabAdd(title, url, id) {
+			layui.use('element',function() {
+				var element = layui.element;
+				//新增一个Tab项
+				if ($(".layui-tab-title li[lay-id=" + id + "]").length == 0) {
+					element.tabAdd('console_tab',{
+						title : '<i class="layui-icon layui-icon-note"></i>&ensp;'+ title,
+						content : '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="layadmin-iframe"></iframe>',
+						id : id
+					});
+				}
+				// 切换tab
+				element.tabChange('console_tab', id);
+				// 切换iframe
+				
+			});
+		};
 	</script>
 </body>
 </html>

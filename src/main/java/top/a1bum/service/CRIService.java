@@ -39,15 +39,15 @@ public class CRIService {
 		return crimapper.getByCampusAndIsExpired(admin_university, isExpired, today, time);
 	}
 
-	public Boolean deleteByid(String id) {
-		return crimapper.deleteById(id);
-	}
-
 	public CRI getById(String id) {
 		return crimapper.getById(id);
 	}
 
 	public Boolean modify(CRI cri) {
 		return crimapper.modify(cri);
+	}
+
+	public Boolean deleteByIds(Integer[] ids) {
+		return crimapper.deleteByIds(ids);
 	}
 }

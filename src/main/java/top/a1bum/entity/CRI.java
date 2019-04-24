@@ -17,6 +17,18 @@ public class CRI
   
   public CRI() {}
   
+  // 为添加用的构造函数
+  public CRI(String wx_id, String company_name, String hold_date, String start_time, String locations, String detail) {
+	super();
+	this.wx_id = wx_id;
+	this.company_name = company_name;
+	this.hold_date = hold_date;
+	this.start_time = start_time;
+	this.locations = locations;
+	this.detail = detail;
+}
+
+// 为修改用的构造函数
   public CRI(Integer id, String wx_id, String company_name, String university_name, String university_short_name,
 		String hold_date, String start_time, String locations, String logo_url, String hot, String isExpired,
 		String detail) {

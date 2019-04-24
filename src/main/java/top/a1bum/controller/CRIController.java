@@ -1,6 +1,7 @@
 package top.a1bum.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,53 +26,32 @@ public class CRIController {
 	@Autowired
 	CRIService criService;
 
-	// 获取当前时间
-	Date curDate = new Date();
-	SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String today = sd.format(curDate.getTime()).split(" ")[0];
-	String time = sd.format(curDate.getTime()).split(" ")[1];
-	
-	
 	@ResponseBody
 	@RequestMapping("modify")
-	public Map<String, Object> modify(@RequestParam("id")Integer id, @RequestParam("company_name") String company_name,
-			@RequestParam("hold_date")String hold_date,
-			@RequestParam("start_time")String start_time,
-			@RequestParam("locations")String locations,
-			@RequestParam("detail")String detail){
-		Map<String,Object> map = new HashMap<>();
-		CRI cri = new CRI(id,"0",company_name,"","",hold_date,start_time,locations,"","","",detail);
+	public Map<String, Object> modify(@RequestParam("id") Integer id, @RequestParam("company_name") String company_name,
+			@RequestParam("hold_date") String hold_date, @RequestParam("start_time") String start_time,
+			@RequestParam("locations") String locations, @RequestParam("detail") String detail) {
+		Map<String, Object> map = new HashMap<>();
+		CRI cri = new CRI(id, "0", company_name, "", "", hold_date, start_time, locations, "", "", "", detail);
 		Boolean result = criService.modify(cri);
 		map.put("msg", result.toString());
 		return map;
 	}
-	
+
 	@RequestMapping("cri_edit")
-	public String edit(@RequestParam("id")String id, Model model){
+	public String edit(@RequestParam("id") String id, Model model) {
 		CRI cri = criService.getById(id);
 		model.addAttribute("cri", cri);
 		return "cri/cri-edit";
 	}
 
 	@ResponseBody
-	@RequestMapping("criTotals")
-	public Map<String, Object> getIsExpiredTotal() {
-		Map<String, Object> map = new HashMap<>();
-		List<CRI> cries = criService.getAll();
-		List<CRI> criHolds = criService.getByCampusAndIsExpired("兰州交通大学", 0, today, time);
-		List<CRI> criNHolds = criService.getByCampusAndIsExpired("兰州交通大学", 1, today, time);
-		map.put("criTotals", cries.size());
-		map.put("criHolds", criHolds.size());
-		map.put("criNHolds", criNHolds.size());
-		return map;
-	}
-
-	@ResponseBody
 	@RequestMapping("delete")
-	public Map<String, Object> delelteByid(@RequestParam("id") String id) {
+	public Map<String, Object> delelteByIds(@RequestParam("id[]") Integer[] ids) {
 		Map<String, Object> map = new HashMap<>();
-		Boolean result = criService.deleteByid(id);
-		map.put("msg", result == true ? "删除成功" : "删除失败");
+		System.out.println(Arrays.toString(ids));
+		Boolean result = criService.deleteByIds(ids);
+		map.put("msg", result.toString());
 		return map;
 	}
 
@@ -80,25 +60,44 @@ public class CRIController {
 		return "cri/cri-add";
 	}
 
-	@RequestMapping("cri_list_limit")
-	public String showCRIListLimit(@RequestParam(name = "p", defaultValue = "1") Integer pageNum,
-			@RequestParam("admin_university") String admin_university, @RequestParam("isExpired") Integer isExpired,
-			Model model) {
-		PageHelper.startPage(pageNum, 15);
-		List<CRI> cries = criService.getByCampusAndIsExpired(admin_university, isExpired, today, time);
+	@ResponseBody
+	@RequestMapping("cri_list_expired")
+	public Map<String, Object> returnCRIList(@RequestParam("page")int pageNum, 
+			@RequestParam("limit")int pageSize,
+			@RequestParam("isExpired")Integer isExpired) {
+		Map<String, Object> map = new HashMap<>();
+		// 获取当前时间
+		Date curDate = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = sd.format(curDate.getTime()).split(" ")[0];
+		String time = sd.format(curDate.getTime()).split(" ")[1];
+		// 查询数据
+		PageHelper.startPage(pageNum, pageSize);
+		List<CRI> cries = criService.getByCampusAndIsExpired("兰州交通大学", isExpired, today, time);
 		// 分页
 		PageInfo<CRI> pageInfo = new PageInfo<>(cries);
-		model.addAttribute("pageInfo", pageInfo);
-		model.addAttribute("isExpired", isExpired);
-		model.addAttribute("adminUniversity", admin_university);
+		map.put("code", cries.size()==0?-1:0);
+		map.put("data", pageInfo);
+		return map;
+	}
+
+	@RequestMapping("cri_list_limit")
+	public String showCRIListLimit(@RequestParam("isExpired")Integer isExpired, Model model) {
+		model.addAttribute("isExpired",isExpired);
 		return "cri/cri-list";
 	}
 
 	@RequestMapping("add")
-	public void addCRI(String company_name, String hold_date, String start_time,
-			 String locations,String details) {
-		CRI cri = new CRI();
-		criService.addCRI(cri);
+	public Map<String, Object> addCRI(@RequestParam("company_name")String company_name, 
+			@RequestParam("hold_date")String hold_date, 
+			@RequestParam("start_time")String start_time, 
+			@RequestParam("locations")String locations, 
+			@RequestParam("detail")String details) {
+		Map<String, Object> map = new HashMap<>();
+		CRI cri = new CRI("0",company_name,hold_date,start_time,locations,details);
+		Boolean result = criService.addCRI(cri);
+		map.put("msg", result.toString());
+		return map;
 	}
 
 	@ResponseBody
@@ -147,9 +146,9 @@ public class CRIController {
 		map.put("cri", cries);
 		return map;
 	}
-	
+
 	@RequestMapping("click")
-	public Boolean onClick(@RequestParam("id")String id) {
+	public Boolean onClick(@RequestParam("id") String id) {
 		return criService.click(id);
 	}
 }

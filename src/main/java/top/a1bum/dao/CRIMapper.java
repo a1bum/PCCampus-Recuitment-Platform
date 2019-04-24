@@ -16,7 +16,7 @@ public interface CRIMapper {
 	public abstract List<CRI> getByDate(String date);
 	public abstract List<CRI> getByCampusAndIsExpired(@Param("admin_university")String admin_university,
 			@Param("isExpired")Integer isExpired, @Param("today")String today, @Param("time") String time);
-	public abstract Boolean deleteById(String id);
 	public abstract CRI getById(String id);
 	public abstract Boolean modify(CRI cri);
+	public abstract Boolean deleteByIds(@Param("ids")Integer[] ids);
 }

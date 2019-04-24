@@ -40,48 +40,6 @@ function x_admin_close(){
 function x_admin_father_reload(){
     parent.location.reload();
 }
-// 单个删除功能
-function member_del(obj, id) {
-	layer.confirm('确认要删除吗？', function(index) {
-		$.ajax({
-			url: "/WXMiniProgram/info/delete",
-			data: {id:id},
-			success:function(res){
-				if(res.msg == "删除成功"){
-					layer.msg('已删除!', {
-						icon : 1,
-						time : 1000
-					});
-				}else{
-					layer.msg('未删除!', {
-						icon : 0,
-						time : 1000
-					});
-				}
-			},
-			fail:function(res){
-				layer.msg('请求接口失败', {
-					icon : 0,
-					time : 1000
-				});
-			}
-		})
-		// 发异步删除数据
-		$(obj).parents("tr").remove();
-		
-	});
-};
-// 批量删除功能
-function delAll(argument) {
-	var data = tableCheck.getData();
-	layer.confirm('确认要删除吗？' + data, function(index) {
-		// 捉到所有被选中的，发异步进行删除
-		layer.msg('删除成功', {
-			icon : 1
-		});
-		$(".layui-form-checked").not('.header').parents('tr').remove();
-	});
-};
 // 加载laydate模块
 layui.use('laydate', function() {
 	var laydate = layui.laydate;
