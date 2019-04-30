@@ -8,6 +8,18 @@
 	<packaging>war</packaging>
 	<dependencies>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>4.5.7</version>
+		</dependency>
+
 		<!-- spring springmvc相关包 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 		<dependency>
@@ -71,7 +83,7 @@
 			<version>5.1.38</version>
 		</dependency>
 
-
+		<!-- alibaba druid datasource -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -97,12 +109,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- jackson -->
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.9.8</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.46</version>
 		</dependency>
 
 		<!-- 测试 -->

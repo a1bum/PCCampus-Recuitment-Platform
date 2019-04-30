@@ -1,5 +1,7 @@
 package top.a1bum.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class CRIService {
 	@Autowired
 	CRIMapper crimapper;
 	
-	public Boolean click(String id) {
+	public Integer click(String id) {
 		return crimapper.click(id);
 	}
 	
@@ -23,6 +25,13 @@ public class CRIService {
 		return crimapper.addCRI(paramCRI);
 	}
 	
+	public List<CRI> getWXAll(){
+		Date curDate = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = sd.format(curDate.getTime()).split(" ")[0];
+		String time = sd.format(curDate.getTime()).split(" ")[1];
+		return crimapper.getWXAll(today, time);
+	}
 	public List<CRI> getAll(){
 		return crimapper.getAll();
 	}

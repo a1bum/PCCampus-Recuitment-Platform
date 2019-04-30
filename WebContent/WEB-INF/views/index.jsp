@@ -8,9 +8,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link rel="stylesheet"
-	href="/WXMiniProgram/static/lib/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"
-	media="all">
+	href="/WXMiniProgram/static/lib/layui/css/layui.css">
+<link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"">
 </head>
 <body class="layui-layout-body">
 
@@ -93,10 +92,10 @@
 						</a>
 							<dl class="layui-nav-child">
 								<dd>
-									<a>今日信息</a>
+									<a  class="layui-this">控制台</a>
 								</dd>
 								<dd>
-									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0" class="layui-this" onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
+									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0" onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
 								</dd>
 								<dd>
 									<a onclick="tabAdd('未举行','/WXMiniProgram/info/cri_list_limit?isExpired=1', 'isNHolds')">未举行</a>

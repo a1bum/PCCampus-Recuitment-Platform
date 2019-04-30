@@ -1,6 +1,6 @@
 body {
 	overflow: hidden;
-	background: url(https://area.sinaapp.com/bingImg/);
+	background: url('../images/background.jfif');
 	background-size: auto;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -25,6 +25,7 @@ body {
 	color: #fff;
 	font-size: 24px;
 	margin-bottom: 20px;
+	margin-top: 10px;
 }
 
 .form_code {
@@ -40,4 +41,14 @@ body {
 
 .login_btn {
 	width: 100%;
+}
+
+.layadmin-user-login-icon {
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	width: 38px;
+	line-height: 36px;
+	text-align: center;
+	color: #d2d2d2
 }

@@ -46,10 +46,14 @@
 		</if>
 		ORDER BY hold_date DESC
 	</select>
+	<select id="getWXAll" resultType="top.a1bum.entity.CRI">
+		select * from
+		campus_recruitment_info
+		WHERE CONCAT(hold_date,start_time)>=CONCAT(#{today}, #{current})
+	</select>
 	<select id="getAll" resultType="top.a1bum.entity.CRI">
 		select * from
 		campus_recruitment_info
-		ORDER BY hold_date DESC
 	</select>
 	<select id="getByKeyword" resultType="top.a1bum.entity.CRI">
 		SELECT * FROM

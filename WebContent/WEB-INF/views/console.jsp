@@ -7,14 +7,14 @@
 <meta charset="utf-8">
 <title>layuiAdmin 控制台主页一</title>
 <meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chromFe=1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link rel="stylesheet"
-	href="/WXMiniProgram/static/lib/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"
-	media="all">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+	href="/WXMiniProgram/static/lib/layui/css/layui.css"">
+<link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css"">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 </head>
 <body onload="getSysInfo()">
 	<div class="layui-fluid">
@@ -25,28 +25,27 @@
 						<div class="layui-card">
 							<div class="layui-card-header">快捷方式</div>
 							<div class="layui-card-body">
-
 								<div class="layui-carousel layadmin-carousel layadmin-shortcut">
-									<div carousel-item>
+									<div>
 										<ul class="layui-row layui-col-space10">
 											<li class="layui-col-xs3"><a
 												lay-href="home/homepage1.html"> <i
-													class="layui-icon layui-icon-console"></i> <cite>主页一</cite>
+													class="layui-icon layui-icon-add-circle-fine"></i> <cite>添加</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
-												lay-href="home/homepage2.html"> <i
-													class="layui-icon layui-icon-chart"></i> <cite>主页二</cite>
+												lay-href="home/homepage2.html"> 
+												<i class="layui-icon layui-icon-chart"></i> <cite>统计图表</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
 												lay-href="component/layer/list.html"> <i
-													class="layui-icon layui-icon-template-1"></i> <cite>弹层</cite>
+													class="layui-icon layui-icon-template-1"></i> <cite>公司</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a layadmin-event="im"> <i
-													class="layui-icon layui-icon-chat"></i> <cite>聊天</cite>
+													class="layui-icon layui-icon-set"></i> <cite>设置</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
 												lay-href="component/progress/index.html"> <i
-													class="layui-icon layui-icon-find-fill"></i> <cite>进度条</cite>
+													class="layui-icon layui-icon-find-fill"></i> <cite>流量查看</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
 												lay-href="app/workorder/list.html"> <i
@@ -58,44 +57,9 @@
 											</a></li>
 											<li class="layui-col-xs3"><a
 												lay-href="set/system/website.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>设置</cite>
+													class="layui-icon layui-icon-set"></i> <cite>个人中心</cite>
 											</a></li>
 										</ul>
-										<ul class="layui-row layui-col-space10">
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-											<li class="layui-col-xs3"><a
-												lay-href="set/user/info.html"> <i
-													class="layui-icon layui-icon-set"></i> <cite>我的资料</cite>
-											</a></li>
-										</ul>
-
 									</div>
 								</div>
 
@@ -106,48 +70,37 @@
 						<div class="layui-card">
 							<div class="layui-card-header">待办事项</div>
 							<div class="layui-card-body">
-
 								<div class="layui-carousel layadmin-carousel layadmin-backlog">
-									<div carousel-item>
+									<div>
 										<ul class="layui-row layui-col-space10">
 											<li class="layui-col-xs6"><a
 												lay-href="app/content/comment.html"
 												class="layadmin-backlog-body">
-													<h3>待审评论</h3>
+													<h3>宣讲待审</h3>
 													<p>
-														<cite>66</cite>
+														<cite id="review" style="color:#FF5722"></cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a
 												lay-href="app/forum/list.html" class="layadmin-backlog-body">
-													<h3>待审帖子</h3>
+													<h3>总数</h3>
 													<p>
-														<cite>12</cite>
+														<cite id="total" style="color:#5FB878">12</cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a
 												lay-href="template/goodslist.html"
 												class="layadmin-backlog-body">
-													<h3>待审商品</h3>
+													<h3>已举行</h3>
 													<p>
-														<cite>99</cite>
+														<cite id="isHolds" style="color:#01AAED">99</cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a href="javascript:;"
-												onclick="layer.tips('不跳转', this, {tips: 3});"
 												class="layadmin-backlog-body">
-													<h3>待发货</h3>
+													<h3>未举行</h3>
 													<p>
-														<cite>20</cite>
-													</p>
-											</a></li>
-										</ul>
-										<ul class="layui-row layui-col-space10">
-											<li class="layui-col-xs6"><a href="javascript:;"
-												class="layadmin-backlog-body">
-													<h3>待审友情链接</h3>
-													<p>
-														<cite style="color: #FF5722;">5</cite>
+														<cite id="isNHolds" style="color:#FFB800">20</cite>
 													</p>
 											</a></li>
 										</ul>
@@ -269,20 +222,21 @@
 					$(".memInfo").attr("style", "width: " + res.memInfo + "%");
 					$(".cpuInfoText").text(res.cpuInfo + "%");
 					$(".memInfoText").text(res.memInfo + "%");
+					// 设置特效颜色，cpu  的
 					if (res.cpuInfo >= 60) {
 						$(".cpuInfo").addClass("layui-bg-orange");
-					} else if(res.cpuInfo >= 90){
+					} else if (res.cpuInfo >= 90) {
 						$(".cpuInfo").addClass("layui-bg-red");
-					}else{
+					} else {
 						$(".cpuInfo").removeClass("layui-bg-orange");
 						$(".cpuInfo").removeClass("layui-bg-red");
 					}
-
+					// 设置特效颜色，mem 的
 					if (res.memInfo >= 60) {
 						$(".memInfo").addClass("layui-bg-orange");
-					} else if(res.memInfo >= 90){
+					} else if (res.memInfo >= 90) {
 						$(".cpuInfo").addClass("layui-bg-red");
-					}else{
+					} else {
 						$(".cpuInfo").removeClass("layui-bg-orange");
 						$(".cpuInfo").removeClass("layui-bg-red");
 					}
@@ -291,6 +245,16 @@
 			// 设置延迟
 			setTimeout(getSysInfo, 1000);
 		}
+		// 由于info和admin两个controller不能互相访问service，所以
+		$.ajax({
+			url: '/WXMiniProgram/info/statistic',
+			success:function(res){
+				$("#total").text(res.total);
+				$("#isHolds").text(res.isHolds);
+				$("#isNHolds").text(res.isNHolds);
+				$("#review").text(res.review);
+			},
+		})
 	</script>
 </body>
 </html>

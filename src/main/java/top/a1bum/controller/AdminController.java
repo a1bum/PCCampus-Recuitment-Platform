@@ -1,5 +1,7 @@
 package top.a1bum.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.a1bum.entity.Admin;
 import top.a1bum.service.AdminService;
+import top.a1bum.utils.TCaptchaVerify;
 import top.a1bum.utils.VersionInformation;
 
 @RequestMapping("admin")
@@ -51,12 +54,9 @@ public class AdminController {
 	public String toWelcome(Model model) {
 		Admin admin = adminService.login("root", "toor");
 		VersionInformation ver = new VersionInformation();
-		// 获取用户信息
 		String admin_university = admin.getAdmin_univeristy();
-		// 获取系统版本信息
 		String sysVersionInfo = ver.getSysInfo();
 		String mysqlVersionInfo = ver.getMysqlInfo();
-		// 放入model
 		model.addAttribute("versionInfo", sysVersionInfo);
 		model.addAttribute("mysqlInfo", mysqlVersionInfo);
 		model.addAttribute("adminAccount", admin.getAdmin_account());
@@ -67,18 +67,29 @@ public class AdminController {
 
 	@ResponseBody
 	@RequestMapping("login")
-	public Map<String, Object> login(@RequestParam("account")String account, @RequestParam("password")String password) {
+	public Map<String, Object> login(@RequestParam("ticket")String ticket,@RequestParam("randstr") String rand,
+			@RequestParam("act")String account, @RequestParam("pwd")String password) {
+		InetAddress addr;
+		String userIp;
+		Admin loginResult; 
 		Map<String, Object> map = new HashMap<>();
-		Admin admin = adminService.login(account, password);
-		map.put("msg", admin!=null?"success":"fail");
+		try {
+			addr = InetAddress.getLocalHost();
+			userIp = addr.getHostAddress();
+			loginResult = adminService.login(account, password);
+			if(TCaptchaVerify.verifyTicket(ticket, rand, userIp) == 1 && loginResult != null) {
+				map.put("result", 1);
+			}else {
+				map.put("result", 0);
+			}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		return map;
 	}
-
+	
 	@RequestMapping("toIndex")
-	public String toIndex(Model model) {
-		Admin admin = adminService.login("root", "toor");
-		model.addAttribute("adminUniversity", admin.getAdmin_univeristy());
-		model.addAttribute("adminAccount", admin.getAdmin_account());
+	public String toIndex() {
 		return "index";
 	}
 }
