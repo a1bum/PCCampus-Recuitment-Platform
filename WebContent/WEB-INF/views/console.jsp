@@ -33,8 +33,8 @@
 													class="layui-icon layui-icon-add-circle-fine"></i> <cite>添加</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
-												lay-href="home/homepage2.html"> 
-												<i class="layui-icon layui-icon-chart"></i> <cite>统计图表</cite>
+												lay-href="home/homepage2.html"> <i
+													class="layui-icon layui-icon-chart"></i> <cite>统计图表</cite>
 											</a></li>
 											<li class="layui-col-xs3"><a
 												lay-href="component/layer/list.html"> <i
@@ -68,7 +68,7 @@
 					</div>
 					<div class="layui-col-md6">
 						<div class="layui-card">
-							<div class="layui-card-header">待办事项</div>
+							<div class="layui-card-header">数据统计</div>
 							<div class="layui-card-body">
 								<div class="layui-carousel layadmin-carousel layadmin-backlog">
 									<div>
@@ -78,14 +78,14 @@
 												class="layadmin-backlog-body">
 													<h3>宣讲待审</h3>
 													<p>
-														<cite id="review" style="color:#FF5722"></cite>
+														<cite id="review" style="color: #FF5722"></cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a
 												lay-href="app/forum/list.html" class="layadmin-backlog-body">
 													<h3>总数</h3>
 													<p>
-														<cite id="total" style="color:#5FB878">12</cite>
+														<cite id="total" style="color: #5FB878"></cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a
@@ -93,14 +93,14 @@
 												class="layadmin-backlog-body">
 													<h3>已举行</h3>
 													<p>
-														<cite id="isHolds" style="color:#01AAED">99</cite>
+														<cite id="isHolds" style="color: #01AAED"></cite>
 													</p>
 											</a></li>
 											<li class="layui-col-xs6"><a href="javascript:;"
 												class="layadmin-backlog-body">
 													<h3>未举行</h3>
 													<p>
-														<cite id="isNHolds" style="color:#FFB800">20</cite>
+														<cite id="isNHolds" style="color: #FFB800"></cite>
 													</p>
 											</a></li>
 										</ul>
@@ -111,17 +111,30 @@
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-card">
-							<div class="layui-card-header">数据概览</div>
+							<div class="layui-card-header">平台概览</div>
 							<div class="layui-card-body">
 								<div class="layui-carousel layadmin-carousel layadmin-dataview"
-									data-anim="fade" lay-filter="LAY-index-dataview">
-									<div carousel-item id="LAY-index-dataview">
+									data-anim="fade" lay-filter="LAY-allanalysis-dataview">
+									<div carousel-item id="LAY-allanalysis-dataview">
 										<div>
 											<i class="layui-icon layui-icon-loading1 layadmin-loading"></i>
 										</div>
+										<div></div>
+										<div></div>
 									</div>
 								</div>
-
+							</div>
+						</div>
+						<div class="layui-card">
+							<div class="layui-tab layui-tab-brief layadmin-latestData">
+								<ul class="layui-tab-title">
+									<li class="layui-this">今日热搜</li>
+								</ul>
+								<div class="layui-tab-content">
+									<div class="layui-tab-item layui-show">
+										<table id="LAY-index-topSearch"></table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -177,7 +190,7 @@
 						</div>
 						<div class="layui-progress" lay-showPercent="yes">
 							<h3>内存占用率</h3>
-							<div class="layui-progress-bar memInfo" lay-percent="">
+							<div class="layui-progress-bar memInfo">
 								<span class="layui-progress-text memInfoText"></span>
 							</div>
 						</div>
@@ -185,39 +198,73 @@
 				</div>
 
 				<div class="layui-card">
-					<div class="layui-card-header">
-						申请动态 <i class="layui-icon layui-icon-tips" lay-offset="5"></i>
-					</div>
+					<div class="layui-card-header">文档介绍</div>
 					<div class="layui-card-body">
 						<div class="layui-carousel layadmin-carousel layadmin-news"
 							data-autoplay="true" data-anim="fade" lay-filter="news">
 							<div carousel-item>
 								<div>
 									<a href="http://fly.layui.com/docs/2/" target="_blank"
-										class="layui-bg-red">layuiAdmin 快速上手文档</a>
+										class="layui-bg-red">集成百度 echarts 统计图表</a>
 								</div>
 								<div>
 									<a href="http://fly.layui.com/vipclub/list/layuiadmin/"
-										target="_blank" class="layui-bg-green">layuiAdmin 会员讨论专区</a>
+										target="_blank" class="layui-bg-green">实时获取服务器资源中占用</a>
 								</div>
 								<div>
 									<a href="http://www.layui.com/admin/#get" target="_blank"
-										class="layui-bg-blue">获得 layui 官方后台模板系统</a>
+										class="layui-bg-blue">显示 OS/Server/MySQL 版本信息</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="layui-card">
+					<div class="layui-card-header">版本更新</div>
+					<div class="layui-card-body layui-text layadmin-text">
+						<ul class="layui-timeline">
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">5月1日，控制台集成 echarts 图表</div>
+								</div></li>
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">4月20日，控制台界面实时获取更新 cpu/mem 使用率</div>
+								</div></li>
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">4月10日，后台界面统一使用 layui </div>
+								</div></li>
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">3月26日，微信小程序端数据接口改换为 localhost</div>
+								</div></li>
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">3月10日，微信小程序界面设计基本完成</div>
+								</div></li>
+						</ul>
+					</div>
+				</div>
 			</div>
-
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="/WXMiniProgram/static/lib/layui/layui.js"></script>
+	<script type="text/javascript"
+		src="/WXMiniProgram/static/js/console.js"></script>
 	<script>
 		function getSysInfo() {
 			// 请求数据刷新页面
 			$.ajax({
 				url : "/WXMiniProgram/admin/sysinfo",
 				success : function(res) {
+					console.log(res)
 					$(".cpuInfo").attr("style", "width: " + res.cpuInfo + "%");
 					$(".memInfo").attr("style", "width: " + res.memInfo + "%");
 					$(".cpuInfoText").text(res.cpuInfo + "%");
@@ -235,26 +282,56 @@
 					if (res.memInfo >= 60) {
 						$(".memInfo").addClass("layui-bg-orange");
 					} else if (res.memInfo >= 90) {
-						$(".cpuInfo").addClass("layui-bg-red");
+						$(".memInfo").addClass("layui-bg-red");
 					} else {
-						$(".cpuInfo").removeClass("layui-bg-orange");
-						$(".cpuInfo").removeClass("layui-bg-red");
+						$(".memInfo").removeClass("layui-bg-orange");
+						$(".memInfo").removeClass("layui-bg-red");
 					}
 				}
+			});
+			$.ajax({
+				url : '/WXMiniProgram/info/statistic',
+				success : function(res) {
+					$("#total").text(res.total);
+					$("#isHolds").text(res.isHolds);
+					$("#isNHolds").text(res.isNHolds);
+					$("#review").text(res.review);
+				},
 			});
 			// 设置延迟
 			setTimeout(getSysInfo, 1000);
 		}
-		// 由于info和admin两个controller不能互相访问service，所以
-		$.ajax({
-			url: '/WXMiniProgram/info/statistic',
-			success:function(res){
-				$("#total").text(res.total);
-				$("#isHolds").text(res.isHolds);
-				$("#isNHolds").text(res.isNHolds);
-				$("#review").text(res.review);
-			},
-		})
+		layui.use('table', function() {
+			table = layui.table;
+			table.render({
+				elem : '#LAY-index-topSearch',
+				url : '/WXMiniProgram/info/top5',
+				cols : [ [ {
+					field : 'id',
+					title : 'ID',
+					sort : true
+				}, {
+					field : 'company_name',
+					title : '公司名称'
+				}, {
+					field : 'university_name',
+					title : '所在学校'
+				}, {
+					field : 'hold_date',
+					title : '举办 日期'
+				}, {
+					field : 'start_time',
+					title : '开始时间'
+				}, {
+					field : 'locations',
+					title : '具体地址'
+				}, {
+					field : 'hot',
+					title : '热度'
+				} ] ],
+				limit : 5
+			});
+		});
 	</script>
 </body>
 </html>

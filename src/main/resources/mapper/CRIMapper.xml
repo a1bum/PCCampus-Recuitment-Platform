@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.a1bum.dao.CRIMapper">
+	<select id="getTop5" resultType="top.a1bum.entity.CRI">
+		SELECT * FROM campus_recruitment_info
+		ORDER BY hot DESC
+		LIMIT 5;
+	</select>
 	<update id="modify" parameterType="top.a1bum.entity.CRI">
 		UPDATE campus_recruitment_info
 		SET
@@ -18,7 +23,8 @@
 	<delete id="deleteByIds">
 		DELETE FROM campus_recruitment_info
 		WHERE id in
-		<foreach collection="ids" item="id" separator="," open="(" close=")">
+		<foreach collection="ids" item="id" separator="," open="("
+			close=")">
 			#{id}
 		</foreach>
 	</delete>
@@ -49,7 +55,8 @@
 	<select id="getWXAll" resultType="top.a1bum.entity.CRI">
 		select * from
 		campus_recruitment_info
-		WHERE CONCAT(hold_date,start_time)>=CONCAT(#{today}, #{current})
+		WHERE
+		CONCAT(hold_date,start_time)>=CONCAT(#{today}, #{current})
 	</select>
 	<select id="getAll" resultType="top.a1bum.entity.CRI">
 		select * from

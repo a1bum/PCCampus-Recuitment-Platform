@@ -27,6 +27,16 @@ import top.a1bum.service.CRIService;
 public class CRIController {
 	@Autowired
 	CRIService criService;
+	
+	@ResponseBody
+	@RequestMapping("top5")
+	public Map<String, Object> getTop5(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CRI> list = criService.getTop5();
+		map.put("code", 0);
+		map.put("data", list);
+		return map;
+	}
 
 	@ResponseBody
 	@RequestMapping("statistic")

@@ -40,7 +40,6 @@
 		flow : "modules/flow",
 		util : "modules/util",
 		code : "modules/code",
-		jquery : "modules/jquery",
 		mobile : "modules/mobile",
 		"layui.all" : "../layui.all"
 	};

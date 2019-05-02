@@ -86,19 +86,23 @@
 
 					<ul class="layui-nav layui-nav-tree" lay-shrink="all"
 						id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-						<li data-name="home" class="layui-nav-item layui-nav-itemed">
+						<li data-name="console" class="layui-nav-item layui-this">
+							<a href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
+								class="layui-icon layui-icon-console"></i> <cite>控制台</cite>
+						</a>
+						</li>
+						<li data-name="home" class="layui-nav-item">
 							<a href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
 								class="layui-icon layui-icon-home"></i> <cite>校招信息</cite>
 						</a>
 							<dl class="layui-nav-child">
 								<dd>
-									<a  class="layui-this">控制台</a>
+									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0"
+										onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
 								</dd>
 								<dd>
-									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0" onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
-								</dd>
-								<dd>
-									<a onclick="tabAdd('未举行','/WXMiniProgram/info/cri_list_limit?isExpired=1', 'isNHolds')">未举行</a>
+									<a
+										onclick="tabAdd('未举行','/WXMiniProgram/info/cri_list_limit?isExpired=1', 'isNHolds')">未举行</a>
 								</dd>
 							</dl>
 						</li>
@@ -120,7 +124,7 @@
 							</dl></li>
 						<li data-name="template" class="layui-nav-item"><a
 							href="javascript:;" lay-tips="页面" lay-direction="2"> <i
-								class="layui-icon layui-icon-template"></i> <cite>数据统计</cite>
+								class="layui-icon layui-icon-chart-screen"></i> <cite>数据统计</cite>
 						</a>
 							<dl class="layui-nav-child">
 								<dd>
@@ -241,21 +245,28 @@
 			});
 		});
 		function tabAdd(title, url, id) {
-			layui.use('element',function() {
-				var element = layui.element;
-				//新增一个Tab项
-				if ($(".layui-tab-title li[lay-id=" + id + "]").length == 0) {
-					element.tabAdd('console_tab',{
-						title : '<i class="layui-icon layui-icon-note"></i>&ensp;'+ title,
-						content : '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="layadmin-iframe"></iframe>',
-						id : id
-					});
-				}
-				// 切换tab
-				element.tabChange('console_tab', id);
-				// 切换iframe
-				
-			});
+			layui
+					.use(
+							'element',
+							function() {
+								var element = layui.element;
+								//新增一个Tab项
+								if ($(".layui-tab-title li[lay-id=" + id + "]").length == 0) {
+									element
+											.tabAdd(
+													'console_tab',
+													{
+														title : '<i class="layui-icon layui-icon-note"></i>&ensp;'
+																+ title,
+														content : '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="layadmin-iframe"></iframe>',
+														id : id
+													});
+								}
+								// 切换tab
+								element.tabChange('console_tab', id);
+								// 切换iframe
+
+							});
 		};
 	</script>
 </body>

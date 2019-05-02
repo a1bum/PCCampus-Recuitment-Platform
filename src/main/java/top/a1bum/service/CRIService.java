@@ -59,4 +59,8 @@ public class CRIService {
 	public Boolean deleteByIds(Integer[] ids) {
 		return crimapper.deleteByIds(ids);
 	}
+
+	public List<CRI> getTop5() {
+		return crimapper.getTop5();
+	}
 }

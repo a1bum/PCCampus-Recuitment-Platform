@@ -14,6 +14,16 @@
 
 ## 更新日志
 
+### 2019-05-04
+
+1. 实现“登录时验证码效果”（[腾讯防水墙-验证码](https://007.qq.com/online.html?ADTAG=index.head)）；
+
+2. 实现“控制台界面集成百度 echarts 统计图表”（[[干货·前端]LayuiAdmin使用echarts的两种方式](https://kknews.cc/other/2everj9.html)）；
+3. 实现“控制台界面提供热搜前 5”；
+4. 实现“微信小程序端提醒功能”（[微信小程序：模板消息推送实现](https://segmentfault.com/a/1190000016183735)）；
+5. 实现“用户访问浏览器分布统计图”（[利用User-agent-utils获取用户浏览器、操作系统等信息](http://irmlab.ruc.edu.cn/2016/08/15/user-agent-utils.html)）；
+6. 修复“轮播图出现时，ajax 异步加载数据显示为 undefined”问题。
+
 ### 2019-04-21
 
 1. 修改后台管理主页为 layui-admin风格（[layuiadmin](https://www.layui.com/admin/std/dist/views/)）；
