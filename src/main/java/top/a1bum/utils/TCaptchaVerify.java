@@ -34,15 +34,10 @@ public class TCaptchaVerify {
             if (entity != null) {
                 String res = EntityUtils.toString(entity);
                 JSONObject result = JSON.parseObject(res);
-                // 返回码
                 int code = result.getInteger("response");
-                // 恶意等级
-                int evilLevel = result.getInteger("evil_level");
-                // 验证成功
                 return code;
             }
         } catch (java.io.IOException e) {
-            // 忽略
         } finally {
             try {
                 response.close();

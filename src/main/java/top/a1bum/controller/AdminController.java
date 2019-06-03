@@ -30,6 +30,11 @@ import top.a1bum.utils.VersionInformation;
 public class AdminController {
 	@Autowired
 	AdminService adminService;
+	
+	@RequestMapping("reset_pass")
+	public String showResetPass() {
+		return "user/reset-pass";
+	}
 
 	@RequestMapping("admin_add")
 	public String showAdminAdd() {
@@ -70,7 +75,7 @@ public class AdminController {
 		model.addAttribute("adminAccount", admin.getAdmin_account());
 		model.addAttribute("adminTotals", adminService.getColleagues(admin_university));
 		model.addAttribute("adminUniversity", admin_university);
-		return "console";
+		return "admin/console";
 	}
 
 	@RequestMapping("login")
@@ -110,6 +115,6 @@ public class AdminController {
 
 	@RequestMapping("toIndex")
 	public String toIndex() {
-		return "index";
+		return "admin/admin-index";
 	}
 }

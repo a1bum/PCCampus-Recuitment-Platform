@@ -63,6 +63,7 @@ public class CRIController {
 	@RequestMapping("detail")
 	public Map<String, Object> getDetail(@RequestParam("id") String id) throws UnsupportedEncodingException {
 		Map<String, Object> map = new HashMap<>();
+		criService.click(id);
 		CRI cri = criService.getById(id);
 		byte[] decode_byte = Base64.decodeBase64(cri.getDetail());
 		String decode = new String(decode_byte, "utf-8");
@@ -84,8 +85,11 @@ public class CRIController {
 	}
 
 	@RequestMapping("cri_edit")
-	public String edit(@RequestParam("id") String id, Model model) {
+	public String edit(@RequestParam("id") String id, Model model) throws UnsupportedEncodingException {
 		CRI cri = criService.getById(id);
+		byte[] decode_byte = Base64.decodeBase64(cri.getDetail());
+		String decode = new String(decode_byte, "utf-8");
+		cri.setDetail(decode);
 		model.addAttribute("cri", cri);
 		return "cri/cri-edit";
 	}
@@ -189,15 +193,6 @@ public class CRIController {
 		List<CRI> cries = criService.getByDate(key);
 		PageInfo<CRI> pageInfo = new PageInfo<>(cries);
 		map.put("cri", pageInfo);
-		return map;
-	}
-
-	@ResponseBody
-	@RequestMapping("click")
-	public Map<String, Object> onClick(@RequestParam("id") String id) {
-		Map<String, Object> map = new HashMap<>();
-		Integer rows = criService.click(id);
-		map.put("rows", rows);
 		return map;
 	}
 }

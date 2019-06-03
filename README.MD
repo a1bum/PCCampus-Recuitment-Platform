@@ -14,15 +14,21 @@
 
 ## 更新日志
 
+### 2019-05-30
+
+1. shell统计每一个小时内的流量出入情况并加入crontab（[awk列求和计算](https://blog.51cto.com/slien/123760)、[Linux命令——timeout](https://blog.csdn.net/xiaqunfeng123/article/details/54315390)）；
+2. 添加“每小时动态调整前端显示的流量变化情况”功能；
+3. 添加“在线浏览pdf”功能（[pdf.js](https://www.cnblogs.com/zdz8207/p/html5-pdf-js.html)）。
+
 ### 2019-05-04
 
 1. 实现“登录时验证码效果”（[腾讯防水墙-验证码](https://007.qq.com/online.html?ADTAG=index.head)）；
-
 2. 实现“控制台界面集成百度 echarts 统计图表”（[[干货·前端]LayuiAdmin使用echarts的两种方式](https://kknews.cc/other/2everj9.html)）；
 3. 实现“控制台界面提供热搜前 5”；
 4. 实现“微信小程序端提醒功能”（[微信小程序：模板消息推送实现](https://segmentfault.com/a/1190000016183735)）；
 5. 实现“用户访问浏览器分布统计图”（[利用User-agent-utils获取用户浏览器、操作系统等信息](http://irmlab.ruc.edu.cn/2016/08/15/user-agent-utils.html)）；
-6. 修复“轮播图出现时，ajax 异步加载数据显示为 undefined”问题。
+6. 修复“轮播图出现时，ajax 异步加载数据显示为 undefined”问题；
+7. 整合“controller 部分方法”，减少代码体积，保证代码质量。
 
 ### 2019-04-21
 

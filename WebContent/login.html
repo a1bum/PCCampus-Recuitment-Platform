@@ -7,16 +7,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
+<link href="./favicon.ico" rel="SHORTCUT ICON"/>
 <link rel="stylesheet"
 	href="/WXMiniProgram/static/lib/layui/css/layui.css" />
 <link rel="stylesheet" href="/WXMiniProgram/static/css/login.css" />
 <link rel="stylesheet" href="/WXMiniProgram/static/css/admin.css" />
 <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
 </head>
-<body'>
+<body>
 	<div class="login">
 		<h1>CRI-Campus</h1>
-		<form class="layui-form" id="login_form">
+		<form class="layui-form" id="login_form" name="login">
 			<div class="layui-form-item">
 				<input class="layui-input" name="act" placeholder="用户名"
 					lay-verify="required" type="text" autocomplete="off" id="act"">
@@ -47,25 +48,22 @@
 			// res（用户主动关闭验证码）= {ret: 2, ticket: null}
 			// res（验证成功） = {ret: 0, ticket: "String", randstr: "String"}
 			if (res.ret === 0) {
-				$
-						.ajax({
-							url : '/WXMiniProgram/admin/login',
-							data : {
-								ticket : res.ticket,
-								randstr : res.randstr,
-								act : $("#act").val(),
-								pwd : $("#pwd").val()
-							},
-							success : function(res) {
-								console.log(res)
-								var icon = res.result === 1 ? 1 : 0;
-								var msg = res.result === 1 ? '登录成功，正在跳转！'
-										: "用户名或密码不正确";
-								layui.use('layer', function() {
-									layer = layui.layer;
-									layer.msg(msg, {
-										icon : icon,
-										time : 1000
+				$.ajax({
+					url : '/WXMiniProgram/admin/login',
+					data : {
+						ticket : res.ticket,
+						randstr : res.randstr,
+						act : $("#act").val(),
+						pwd : $("#pwd").val()
+					},
+					success : function(res) {
+						var icon = res.result === 1 ? 1 : 0;
+						var msg = res.result === 1 ? '登录成功，正在跳转！': "用户名或密码不正确";
+						layui.use('layer', function() {
+							layer = layui.layer;
+							layer.msg(msg, {
+								icon : icon,
+								time : 1000
 									})
 								})
 								if (res.result === 1) {

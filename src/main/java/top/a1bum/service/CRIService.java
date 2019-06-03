@@ -61,6 +61,8 @@ public class CRIService {
 	}
 
 	public List<CRI> getTop5() {
-		return crimapper.getTop5();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sd.format(new Date());
+		return crimapper.getTop5(today);
 	}
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>layuiAdmin 控制台主页一</title>
+<title>控制台主页</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chromFe=1">
 <meta name="viewport"
@@ -128,7 +128,7 @@
 						<div class="layui-card">
 							<div class="layui-tab layui-tab-brief layadmin-latestData">
 								<ul class="layui-tab-title">
-									<li class="layui-this">今日热搜</li>
+									<li class="layui-this">今日最热</li>
 								</ul>
 								<div class="layui-tab-content">
 									<div class="layui-tab-item layui-show">
@@ -204,16 +204,17 @@
 							data-autoplay="true" data-anim="fade" lay-filter="news">
 							<div carousel-item>
 								<div>
-									<a href="http://fly.layui.com/docs/2/" target="_blank"
-										class="layui-bg-red">集成百度 echarts 统计图表</a>
+									<a href="/WXMiniProgram/static/pdf/web/viewer.html"
+										target="_blank" class="layui-bg-red">集成百度 echarts 统计图表</a>
 								</div>
 								<div>
-									<a href="http://fly.layui.com/vipclub/list/layuiadmin/"
+									<a href="/WXMiniProgram/static/pdf/web/viewer.html"
 										target="_blank" class="layui-bg-green">实时获取服务器资源中占用</a>
 								</div>
 								<div>
-									<a href="http://www.layui.com/admin/#get" target="_blank"
-										class="layui-bg-blue">显示 OS/Server/MySQL 版本信息</a>
+									<a href="/WXMiniProgram/static/pdf/web/viewer.html"
+										target="_blank" class="layui-bg-blue">显示 OS/Server/MySQL
+										版本信息</a>
 								</div>
 							</div>
 						</div>
@@ -226,22 +227,29 @@
 							<li class="layui-timeline-item"><i
 								class="layui-icon layui-timeline-axis"></i>
 								<div class="layui-timeline-content layui-text">
-									<div class="layui-timeline-title">5月1日，控制台集成 echarts 图表</div>
+									<div class="layui-timeline-title">6月2日，允许在线预览pdf论文</div>
+								</div></li>
+							<li class="layui-timeline-item"><i
+								class="layui-icon layui-timeline-axis"></i>
+								<div class="layui-timeline-content layui-text">
+									<div class="layui-timeline-title">5月1日，控制台集成 Echarts图表</div>
 								</div></li>
 							<li class="layui-timeline-item"><i
 								class="layui-icon layui-timeline-axis"></i>
 								<div class="layui-timeline-content layui-text">
-									<div class="layui-timeline-title">4月20日，控制台界面实时获取更新 cpu/mem 使用率</div>
+									<div class="layui-timeline-title">4月20日，控制台界面实时获取更新
+										cpu/mem 使用率</div>
 								</div></li>
 							<li class="layui-timeline-item"><i
 								class="layui-icon layui-timeline-axis"></i>
 								<div class="layui-timeline-content layui-text">
-									<div class="layui-timeline-title">4月10日，后台界面统一使用 layui </div>
+									<div class="layui-timeline-title">4月10日，后台界面统一使用 layui</div>
 								</div></li>
 							<li class="layui-timeline-item"><i
 								class="layui-icon layui-timeline-axis"></i>
 								<div class="layui-timeline-content layui-text">
-									<div class="layui-timeline-title">3月26日，微信小程序端数据接口改换为 localhost</div>
+									<div class="layui-timeline-title">3月26日，微信小程序端数据接口改换为
+										localhost</div>
 								</div></li>
 							<li class="layui-timeline-item"><i
 								class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
@@ -264,7 +272,7 @@
 			$.ajax({
 				url : "/WXMiniProgram/admin/sysinfo",
 				success : function(res) {
-					console.log(res)
+					// 渲染使用占比长度
 					$(".cpuInfo").attr("style", "width: " + res.cpuInfo + "%");
 					$(".memInfo").attr("style", "width: " + res.memInfo + "%");
 					$(".cpuInfoText").text(res.cpuInfo + "%");
@@ -309,9 +317,10 @@
 				cols : [ [ {
 					field : 'id',
 					title : 'ID',
-					sort : true
+					width : 80
 				}, {
 					field : 'company_name',
+					width : 200,
 					title : '公司名称'
 				}, {
 					field : 'university_name',
@@ -327,7 +336,8 @@
 					title : '具体地址'
 				}, {
 					field : 'hot',
-					title : '热度'
+					title : '热度',
+					width : 80
 				} ] ],
 				limit : 5
 			});

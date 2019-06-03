@@ -9,10 +9,12 @@ import java.util.Properties;
 
 @SuppressWarnings("restriction")
 public class VersionInformation {
+	// 获取管理构件
 	OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
 	public String getSysInfo() {
 		Properties props = System.getProperties();
+		//获取操作系统名称
 		return props.getProperty("os.name");
 	}
 
@@ -24,6 +26,7 @@ public class VersionInformation {
 			Class.forName(props.getProperty("jdbc-driver"));
 			Connection con = DriverManager.getConnection(props.getProperty("jdbc-url"), props.getProperty("jdbc-user"),
 					props.getProperty("jdbc-pwd"));
+			// 通过数据库元信息获取数据库版本
 			DatabaseMetaData dmd = con.getMetaData();
 			mysqlVersion = dmd.getDatabaseProductVersion().split("-0")[0];
 		} catch (Exception e) {
@@ -38,10 +41,11 @@ public class VersionInformation {
 	}
 	
 	public String getMemInfo() {
+		// 获取物理内存总量
 		double total = osMxBean.getTotalPhysicalMemorySize();
+		// 获取物力内存剩余
 		double free = osMxBean.getFreePhysicalMemorySize();
 		Integer memLoad = (int) ((total-free)/total*100);
 		return memLoad.toString();
 	}
-
 }

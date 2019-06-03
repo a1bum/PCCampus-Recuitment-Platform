@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 import top.a1bum.entity.Admin;
 
-public abstract interface AdminMapper
+public interface AdminMapper
 {
   public abstract Boolean addAdmin(Admin admin);
   public abstract Boolean modifyAdmin(Admin admin);

@@ -20,5 +20,5 @@ public interface CRIMapper {
 	public abstract Boolean modify(CRI cri);
 	public abstract Boolean deleteByIds(@Param("ids")Integer[] ids);
 	public abstract List<CRI> getAll();
-	public abstract List<CRI> getTop5();
+	public abstract List<CRI> getTop5(String today);
 }

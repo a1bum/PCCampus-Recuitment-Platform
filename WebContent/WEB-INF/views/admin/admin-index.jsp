@@ -80,63 +80,56 @@
 			<!-- 侧边菜单 -->
 			<div class="layui-side layui-side-menu">
 				<div class="layui-side-scroll">
-					<div class="layui-logo" lay-href="home/console.html">
-						<span>CRI-Campus</span>
+					<div class="layui-logo">
+						<span><a
+							href="https://github.com/a1bum/PCCampus-Recuitment-Platform/blob/master/README.MD">CRI-Campus</a></span>
 					</div>
 
 					<ul class="layui-nav layui-nav-tree" lay-shrink="all"
 						id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-						<li data-name="console" class="layui-nav-item layui-this">
-							<a href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
+						<li data-name="console" class="layui-nav-item layui-this"><a
+							href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
 								class="layui-icon layui-icon-console"></i> <cite>控制台</cite>
-						</a>
-						</li>
-						<li data-name="home" class="layui-nav-item">
-							<a href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
+						</a></li>
+						<li data-name="home" class="layui-nav-item"><a
+							href="javascript:;" lay-tips="校招信息" lay-direction="2"> <i
 								class="layui-icon layui-icon-home"></i> <cite>校招信息</cite>
 						</a>
 							<dl class="layui-nav-child">
 								<dd>
-									<a href="/WXMiniProgram/info/cri_list_limit?isExpired=0"
+									<a id="isHolds"
 										onclick="tabAdd('已举行','/WXMiniProgram/info/cri_list_limit?isExpired=0','isHolds')">已举行</a>
 								</dd>
 								<dd>
 									<a
 										onclick="tabAdd('未举行','/WXMiniProgram/info/cri_list_limit?isExpired=1', 'isNHolds')">未举行</a>
 								</dd>
-							</dl>
-						</li>
+							</dl></li>
 						<li data-name="component" class="layui-nav-item"><a
 							href="javascript:;" lay-tips="组件" lay-direction="2"> <i
 								class="layui-icon layui-icon-component"></i> <cite>公司信息</cite>
 						</a>
 							<dl class="layui-nav-child">
 								<dd>
-									<a lay-href="component/form/element.html">资质审核</a>
+									<a
+										onclick="tabAdd('资质审核','/WXMiniProgram/company/toIndex', 'company-list')">资质审核</a>
 								</dd>
 								<dd>
-									<a lay-href="component/form/group.html">宣讲会申请</a>
+									<a
+										onclick="tabAdd('宣讲会申请','/WXMiniProgram/company/toIndex', 'company-list')">宣讲会申请</a>
 								</dd>
 								<dd>
-									<a lay-href="component/form/group.html">合作伙伴</a>
+									<a
+										onclick="tabAdd('合作伙伴','/WXMiniProgram/company/toIndex', 'company-list')">合作伙伴</a>
 								</dd>
 							</dl>
 							</dl></li>
 						<li data-name="template" class="layui-nav-item"><a
 							href="javascript:;" lay-tips="页面" lay-direction="2"> <i
-								class="layui-icon layui-icon-chart-screen"></i> <cite>数据统计</cite>
-						</a>
-							<dl class="layui-nav-child">
-								<dd>
-									<a lay-href="template/personalpage.html">流量统计</a>
-								</dd>
-								<dd>
-									<a lay-href="template/addresslist.html">用户统计</a>
-								</dd>
-								<dd>
-									<a lay-href="template/caller.html">浏览器统计</a>
-								</dd>
-							</dl></li>
+								class="layui-icon layui-icon-chart-screen"
+								onclick="tabAdd('Kibana监控','/WXMiniProgram/nginx/monitor', 'kibana')"></i>
+								<cite>监控面板</cite>
+						</a></li>
 						<li data-name="user" class="layui-nav-item"><a
 							href="javascript:;" lay-tips="用户" lay-direction="2"> <i
 								class="layui-icon layui-icon-user"></i> <cite>用户信息</cite>
@@ -152,6 +145,10 @@
 									<a lay-href="user/administrators/role.html">角色管理</a>
 								</dd>
 							</dl></li>
+						<li data-name="get" class="layui-nav-item"><a
+							href="https://github.com/a1bum/WXCampus-Recruitment-Platform/blob/master/README.md"><i
+								class="layui-icon layui-icon-auz"></i> <cite>小程序</cite></a>
+							</a></li>
 						<li data-name="set" class="layui-nav-item"><a
 							href="javascript:;" lay-tips="设置" lay-direction="2"> <i
 								class="layui-icon layui-icon-set"></i> <cite>设置</cite>
@@ -175,14 +172,12 @@
 											<a lay-href="set/user/info.html">基本资料</a>
 										</dd>
 										<dd>
-											<a lay-href="set/user/password.html">修改密码</a>
+											<a
+												onclick="tabAdd('Kibana监控','/WXMiniProgram/admin/reset_pass', 'reset')">修改密码</a>
 										</dd>
 									</dl>
 								</dd>
 							</dl></li>
-						<li data-name="get" class="layui-nav-item"><a> <i
-								class="layui-icon layui-icon-auz"></i> <cite>授权</cite>
-						</a></li>
 					</ul>
 				</div>
 			</div>
@@ -212,9 +207,9 @@
 					</ul>
 				</div>
 				<div class="layui-tab" lay-unauto lay-allowClose="true"
-					lay-filter="console_tab">
+					lay-filter="tabs">
 					<ul class="layui-tab-title" id="LAY_app_tabsheader">
-						<li lay-id="console" lay-attr="home/console.html"
+						<li lay-id="console" onClick="switchToConsole()"
 							class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
 					</ul>
 				</div>
@@ -223,13 +218,11 @@
 
 			<!-- 主体内容 -->
 			<div class="layui-body" id="LAY_app_body">
-				<div class="layui-tab-item layui-show">
+				<div class="layui-tab-item layui-show console">
 					<iframe src="/WXMiniProgram/admin/toConsole" frameborder="0"
 						class="layadmin-iframe"></iframe>
 				</div>
-
 			</div>
-
 			<!-- 辅助元素，一般用于移动设备下遮罩 -->
 			<div class="layadmin-body-shade" layadmin-event="shade"></div>
 		</div>
@@ -245,29 +238,31 @@
 			});
 		});
 		function tabAdd(title, url, id) {
-			layui
-					.use(
-							'element',
-							function() {
-								var element = layui.element;
-								//新增一个Tab项
-								if ($(".layui-tab-title li[lay-id=" + id + "]").length == 0) {
-									element
-											.tabAdd(
-													'console_tab',
-													{
-														title : '<i class="layui-icon layui-icon-note"></i>&ensp;'
-																+ title,
-														content : '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="layadmin-iframe"></iframe>',
-														id : id
-													});
-								}
-								// 切换tab
-								element.tabChange('console_tab', id);
-								// 切换iframe
-
-							});
+			layui.use('element',function() {
+				var element = layui.element;
+				if ($(".layui-tab-title li[lay-id=" + id + "]").length == 0) {
+					content = '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="layadmin-iframe"></iframe>';
+					//新增一个Tab项
+					element.tabAdd('tabs',{
+						title : '<i class="layui-icon layui-icon-note"></i>&ensp;'+ title,
+						content : content,
+						id : id
+					})
+					// 切换tab
+					element.tabChange('tabs', id);
+					// 模拟切换iframe
+					$(".layui-show").addClass("old");
+					$(".layui-show").after('<div class="layadmin-tabsbody-item layui-show">'
+											+ content + '</div>');
+					$(".old").removeClass("layui-show");
+				}
+			});
 		};
+		function switchToConsole() {
+			$(".layui-show").addClass("old");
+			$(".old").removeClass("layui-show");
+			$(".console").addClass("layui-show");
+		}
 	</script>
 </body>
 </html>

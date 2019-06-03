@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.a1bum.entity.BroswerTop4;
 import top.a1bum.entity.LoginHistory;
 import top.a1bum.service.LoginHistoryService;
+import top.a1bum.utils.TrafficStatistics;
 
 @RequestMapping("login")
 @Controller
@@ -28,7 +29,6 @@ public class LoginHistoryController {
 		LoginHistory history = (LoginHistory) request.getAttribute("LoginHistory");
 		historyService.addLoginHistoryMapper(history);
 		map.put("result", history.getLogin_success());
-		System.out.println(history);
 		return map;
 	}
 	
@@ -45,7 +45,19 @@ public class LoginHistoryController {
 		}
 		Integer othersValue = historyService.getAll()-top4Total;
 		map.put("othersValue", othersValue);
-		System.out.println(map);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("traffic")
+	public Map<String, Object> getTrafficStatistic(){
+		Map<String, Object> map = new HashMap<>();
+		// 做统计
+		TrafficStatistics.getTrafficPerHour();
+		System.out.println(TrafficStatistics.outs);
+		map.put("valueArr2", TrafficStatistics.outs);
+		map.put("valueArr1", TrafficStatistics.incomes);
+		map.put("timeArr", TrafficStatistics.times);
 		return map;
 	}
 }
